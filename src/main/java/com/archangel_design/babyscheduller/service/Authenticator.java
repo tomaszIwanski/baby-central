@@ -9,7 +9,7 @@ import java.util.regex.Pattern;
 
 public class Authenticator extends UsernamePasswordAuthenticationToken {
 
-    Session sessionService;
+    SessionService sessionServiceService;
 
     private HttpServletRequest request;
 
@@ -22,8 +22,8 @@ public class Authenticator extends UsernamePasswordAuthenticationToken {
         return this;
     }
 
-    public Authenticator setModel(Session sessionService) {
-        this.sessionService = sessionService;
+    public Authenticator setModel(SessionService sessionServiceService) {
+        this.sessionServiceService = sessionServiceService;
         return this;
     }
 
@@ -59,7 +59,7 @@ public class Authenticator extends UsernamePasswordAuthenticationToken {
         if (request.getMethod().equalsIgnoreCase("options"))
             return true;
 
-        SessionEntity s = sessionService.getSession(request.getHeader("Authorization"));
+        SessionEntity s = sessionServiceService.getSession(request.getHeader("Authorization"));
         return s != null;
     }
 

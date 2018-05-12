@@ -1,7 +1,7 @@
 package com.archangel_design.babyscheduller.configuration;
 
 import com.archangel_design.babyscheduller.service.AuthFilter;
-import com.archangel_design.babyscheduller.service.Session;
+import com.archangel_design.babyscheduller.service.SessionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -23,7 +23,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     private AuthenticationProvider authenticationProvider;
 
     @Autowired
-    Session sessionService;
+    SessionService sessionServiceService;
 
     @Bean
     @Override
@@ -38,7 +38,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Bean
     public AuthFilter authenticationTokenFilterBean() throws Exception {
-        AuthFilter authenticationTokenFilter = new AuthFilter(sessionService);
+        AuthFilter authenticationTokenFilter = new AuthFilter(sessionServiceService);
         authenticationTokenFilter.setAuthenticationManager(authenticationManagerBean());
         return authenticationTokenFilter;
     }

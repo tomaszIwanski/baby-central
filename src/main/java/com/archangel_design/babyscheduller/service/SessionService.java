@@ -5,7 +5,7 @@ import com.archangel_design.babyscheduller.entity.UserEntity;
 import org.springframework.stereotype.Service;
 
 @Service
-public class Session {
+public class SessionService {
 
     /**
      * Returns valid session based on given token

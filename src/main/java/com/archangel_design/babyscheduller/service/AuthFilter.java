@@ -10,10 +10,10 @@ import java.io.IOException;
 
 public class AuthFilter extends UsernamePasswordAuthenticationFilter {
 
-    private Session sessionService;
+    private SessionService sessionServiceService;
 
-    public AuthFilter(Session sessionService) {
-        this.sessionService = sessionService;
+    public AuthFilter(SessionService sessionServiceService) {
+        this.sessionServiceService = sessionServiceService;
     }
 
     @Override
@@ -24,7 +24,7 @@ public class AuthFilter extends UsernamePasswordAuthenticationFilter {
             if (!currentRequestIsAsyncDispatcher(request)) {
                 Authenticator authentication = new Authenticator(null, null);
                 authentication.setDetails((new WebAuthenticationDetailsSource()).buildDetails(request));
-                authentication.setModel(sessionService);
+                authentication.setModel(sessionServiceService);
                 authentication.setRequest(request);
                 SecurityContextHolder.getContext().setAuthentication(authentication);
             }
