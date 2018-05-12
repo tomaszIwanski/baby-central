@@ -1,7 +1,6 @@
-package com.webexperts.hgapi.auth;
+package com.archangel_design.babyscheduller.service;
 
-import com.webexperts.hgapi.entity.SessionEntity;
-import com.webexperts.hgapi.model.SessionModel;
+import com.archangel_design.babyscheduller.entity.SessionEntity;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 
 import javax.servlet.http.HttpServletRequest;
@@ -10,7 +9,7 @@ import java.util.regex.Pattern;
 
 public class Authenticator extends UsernamePasswordAuthenticationToken {
 
-    SessionModel model;
+    Session sessionService;
 
     private HttpServletRequest request;
 
@@ -23,8 +22,8 @@ public class Authenticator extends UsernamePasswordAuthenticationToken {
         return this;
     }
 
-    public Authenticator setModel(SessionModel model) {
-        this.model = model;
+    public Authenticator setModel(Session sessionService) {
+        this.sessionService = sessionService;
         return this;
     }
 
@@ -49,21 +48,18 @@ public class Authenticator extends UsernamePasswordAuthenticationToken {
             return true;
         System.out.println(request.getRequestURI());
         // @TODO: use abstraction permission
-        Pattern p = Pattern.compile("^\\/auth/.*");
+        Pattern p = Pattern.compile("^/auth/.*");
         Matcher m = p.matcher(request.getRequestURI());
         if (m.matches())
             return true;
-        p = Pattern.compile("^\\/v2/.*");
+        p = Pattern.compile("^/v2/.*");
         m = p.matcher(request.getRequestURI());
         if (m.matches())
             return true;
         if (request.getMethod().equalsIgnoreCase("options"))
             return true;
-        p = Pattern.compile("^\\/supplier/fetch-by-id/.*");
-        m = p.matcher(request.getRequestURI());
-        if (m.matches())
-            return true;
-        SessionEntity s = model.getSession(request.getHeader("Authorization"));
+
+        SessionEntity s = sessionService.getSession(request.getHeader("Authorization"));
         return s != null;
     }
 
