@@ -8,7 +8,7 @@ import java.util.UUID;
 
 @Entity
 @Table(name = "users")
-public class User {
+public class UserEntity {
 
     @Id
     @GeneratedValue
@@ -27,15 +27,15 @@ public class User {
 
     private Date lastUsage;
 
-    @OneToMany(targetEntity = Baby.class)
+    @OneToMany(targetEntity = BabyEntity.class)
     @JoinColumn(name = "parent_id")
-    private List<Baby> babies = new ArrayList<>();
+    private List<BabyEntity> babies = new ArrayList<>();
 
     public Long getId() {
         return id;
     }
 
-    public User setId(Long id) {
+    public UserEntity setId(Long id) {
         this.id = id;
         return this;
     }
@@ -44,7 +44,7 @@ public class User {
         return uuid;
     }
 
-    public User setUuid(String uuid) {
+    public UserEntity setUuid(String uuid) {
         this.uuid = uuid;
         return this;
     }
@@ -53,7 +53,7 @@ public class User {
         return email;
     }
 
-    public User setEmail(String email) {
+    public UserEntity setEmail(String email) {
         this.email = email;
         return this;
     }
@@ -62,7 +62,7 @@ public class User {
         return password;
     }
 
-    public User setPassword(String password) {
+    public UserEntity setPassword(String password) {
         this.password = password;
         return this;
     }
@@ -71,7 +71,7 @@ public class User {
         return registration;
     }
 
-    public User setRegistration(Date registration) {
+    public UserEntity setRegistration(Date registration) {
         this.registration = registration;
         return this;
     }
@@ -80,7 +80,7 @@ public class User {
         return lastUsage;
     }
 
-    public User setLastUsage(Date lastUsage) {
+    public UserEntity setLastUsage(Date lastUsage) {
         this.lastUsage = lastUsage;
         return this;
     }

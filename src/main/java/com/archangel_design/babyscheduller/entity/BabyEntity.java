@@ -5,7 +5,7 @@ import java.util.Date;
 
 @Entity
 @Table(name = "babies")
-public class Baby {
+public class BabyEntity {
 
     @Id
     @GeneratedValue
@@ -20,7 +20,7 @@ public class Baby {
         return id;
     }
 
-    public Baby setId(Long id) {
+    public BabyEntity setId(Long id) {
         this.id = id;
         return this;
     }
@@ -29,7 +29,7 @@ public class Baby {
         return name;
     }
 
-    public Baby setName(String name) {
+    public BabyEntity setName(String name) {
         this.name = name;
         return this;
     }
@@ -38,7 +38,7 @@ public class Baby {
         return birthday;
     }
 
-    public Baby setBirthday(Date birthday) {
+    public BabyEntity setBirthday(Date birthday) {
         this.birthday = birthday;
         return this;
     }

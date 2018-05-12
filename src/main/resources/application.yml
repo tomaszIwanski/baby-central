@@ -1,0 +1,22 @@
+spring:
+  jpa:
+    generate-ddl: true
+    hibernate:
+      ddl-auto: update
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+  datasource:
+    url: "j"
+    username: ""
+    password: ""
+    driver-class: com.mysql.cj.jdbc.Driver
+
+server:
+  port: 9001
+  use-forward-headers: true
+
+app:
+  companyName: Archangel Design
