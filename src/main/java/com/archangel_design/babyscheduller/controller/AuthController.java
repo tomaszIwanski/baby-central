@@ -1,7 +1,11 @@
 package com.archangel_design.babyscheduller.controller;
 
 import com.archangel_design.babyscheduller.entity.SessionEntity;
+import com.archangel_design.babyscheduller.entity.UserEntity;
+import com.archangel_design.babyscheduller.entity.dto.UserDto;
+import com.archangel_design.babyscheduller.exception.InvalidArgumentException;
 import com.archangel_design.babyscheduller.request.LoginRequest;
+import com.archangel_design.babyscheduller.request.RegistrationRequest;
 import com.archangel_design.babyscheduller.response.LoginResponse;
 import com.archangel_design.babyscheduller.service.UserService;
 import org.apache.http.auth.InvalidCredentialsException;
@@ -28,5 +32,16 @@ public class AuthController {
                 .setCreated(newSession.getCreated())
                 .setExpiration(newSession.getExpiration())
                 .setSessionId(newSession.getSessionId());
+    }
+
+    public UserDto register(
+            @RequestBody RegistrationRequest request
+            ) throws InvalidArgumentException {
+        UserEntity user = userService.register(
+                request.getEmail(),
+                request.getFirstName(),
+                request.getPassword(),
+                request.getPasswordRepeat());
+        return UserDto.build(user);
     }
 }

@@ -1,9 +1,6 @@
 package com.archangel_design.babyscheduller.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.Date;
 
 @Entity
@@ -13,6 +10,8 @@ public class SessionEntity {
     @GeneratedValue
     private Long id;
 
+    @ManyToOne(targetEntity = UserEntity.class)
+    @JoinColumn(name = "user_id")
     private UserEntity user;
 
     private String sessionId;

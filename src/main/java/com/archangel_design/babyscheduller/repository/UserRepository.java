@@ -56,5 +56,27 @@ public class UserRepository {
         return query.getResultList().stream().findFirst().orElse(null);
     }
 
+    /**
+     * Returns true if user identified by given email
+     * is already registered. Does not include deleted accounts
+     *
+     * @param email user email
+     * @return true|false
+     */
+    public Boolean userExists(String email) {
+        TypedQuery<Long> query = em.createQuery(
+                "select count(u) from UserEntity u "
+                + "where lower(u.email) = :email "
+                +"and u.deleted = false",
+                Long.class
+        );
+        query.setParameter("email", email.toLowerCase());
 
+        return query.getSingleResult() > 0;
+    }
+
+
+    public UserEntity save(UserEntity userEntity) {
+        return em.merge(userEntity);
+    }
 }

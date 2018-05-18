@@ -2,10 +2,15 @@ package com.archangel_design.babyscheduller.service;
 
 import com.archangel_design.babyscheduller.entity.SessionEntity;
 import com.archangel_design.babyscheduller.entity.UserEntity;
+import com.archangel_design.babyscheduller.exception.InvalidArgumentException;
 import com.archangel_design.babyscheduller.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.Date;
+
+import static com.mysql.jdbc.StringUtils.isNullOrEmpty;
 
 @Service
 public class UserService {
@@ -14,7 +19,7 @@ public class UserService {
     SessionService sessionServiceService;
 
     @Autowired
-    UserRepository userRepository;
+    private UserRepository userRepository;
 
     public boolean isPasswordValid(String password, String hash) {
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
@@ -29,9 +34,35 @@ public class UserService {
     public SessionEntity login(String email, String password) {
         UserEntity user = userRepository.fetch(email, hashPassword(password));
         if (user == null) {
+            user = userRepository.fetch(email);
+            if (user == null)
+                return null;
             // register failed login attempt
+
             return null;
         }
         return new SessionEntity();
+    }
+
+    public UserEntity register(
+            String email, String firstName,
+            String password, String passwordRepeat) throws InvalidArgumentException {
+        if (isNullOrEmpty(email) || isNullOrEmpty(firstName)
+                || isNullOrEmpty(password) || isNullOrEmpty(passwordRepeat))
+            throw new InvalidArgumentException("Missing required field.");
+
+        if (!password.equals(passwordRepeat))
+            throw new InvalidArgumentException("Passwords do not match.");
+
+        if (userRepository.userExists(email))
+            throw new InvalidArgumentException(String.format("User %s is already registered.", email));
+
+        UserEntity userEntity = new UserEntity();
+        userEntity.setEmail(email)
+                .setLastUsage(new Date())
+                .setPassword(password)
+                .setRegistration(new Date());
+
+        return userRepository.save(userEntity);
     }
 }

@@ -27,6 +27,8 @@ public class UserEntity {
 
     private Date lastUsage;
 
+    private Boolean deleted = false;
+
     @OneToMany(targetEntity = BabyEntity.class)
     @JoinColumn(name = "parent_id")
     private List<BabyEntity> babies = new ArrayList<>();
@@ -82,6 +84,24 @@ public class UserEntity {
 
     public UserEntity setLastUsage(Date lastUsage) {
         this.lastUsage = lastUsage;
+        return this;
+    }
+
+    public List<BabyEntity> getBabies() {
+        return babies;
+    }
+
+    public UserEntity setBabies(List<BabyEntity> babies) {
+        this.babies = babies;
+        return this;
+    }
+
+    public Boolean getDeleted() {
+        return deleted;
+    }
+
+    public UserEntity setDeleted(Boolean deleted) {
+        this.deleted = deleted;
         return this;
     }
 }
