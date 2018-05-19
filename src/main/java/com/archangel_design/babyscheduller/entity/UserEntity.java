@@ -1,5 +1,7 @@
 package com.archangel_design.babyscheduller.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Date;
@@ -8,6 +10,7 @@ import java.util.UUID;
 
 @Entity
 @Table(name = "users")
+@JsonIgnoreProperties(value = {"id", "deleted", "password"})
 public class UserEntity {
 
     @Id
@@ -32,6 +35,10 @@ public class UserEntity {
     @OneToMany(targetEntity = BabyEntity.class)
     @JoinColumn(name = "parent_id")
     private List<BabyEntity> babies = new ArrayList<>();
+
+    @ManyToOne(targetEntity = OrganizationEntity.class)
+    @JoinColumn(name = "organization_id")
+    private OrganizationEntity organization;
 
     public Long getId() {
         return id;

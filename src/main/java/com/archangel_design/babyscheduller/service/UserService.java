@@ -64,4 +64,8 @@ public class UserService {
 
         return userRepository.save(userEntity);
     }
+
+    public UserEntity getCurrentUser() {
+        return sessionService.getCurrentSession().getUser();
+    }
 }

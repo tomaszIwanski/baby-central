@@ -17,6 +17,6 @@ public class UserController {
     @GetMapping("/my-account")
     public UserEntity myAccount() {
 
-        return null;
+        return userService.getCurrentUser();
     }
 }
