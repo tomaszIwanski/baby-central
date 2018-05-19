@@ -4,6 +4,7 @@ import com.archangel_design.babyscheduller.entity.UserEntity;
 import com.archangel_design.babyscheduller.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -16,7 +17,12 @@ public class UserController {
 
     @GetMapping("/my-account")
     public UserEntity myAccount() {
-
         return userService.getCurrentUser();
     }
+
+    @PostMapping("/update-profile")
+    public void updateProfile() {}
+
+    @PostMapping("/update-location")
+    public void updateLocation() {}
 }
