@@ -16,7 +16,7 @@ import static com.mysql.jdbc.StringUtils.isNullOrEmpty;
 public class UserService {
 
     @Autowired
-    SessionService sessionServiceService;
+    SessionService sessionService;
 
     @Autowired
     private UserRepository userRepository;
@@ -31,17 +31,16 @@ public class UserService {
         return encoder.encode(passwordRaw);
     }
 
-    public SessionEntity login(String email, String password) {
-        UserEntity user = userRepository.fetch(email, hashPassword(password));
-        if (user == null) {
-            user = userRepository.fetch(email);
-            if (user == null)
-                return null;
-            // register failed login attempt
-
+    public SessionEntity login(String email, String password, String deviceId) {
+        UserEntity user = userRepository.fetch(email);
+        if (user == null)
             return null;
-        }
-        return new SessionEntity();
+
+        if (isPasswordValid(password, user.getPassword()))
+            return sessionService.startSession(user, deviceId);
+
+        // register failed login attempt
+        return null;
     }
 
     public UserEntity register(
@@ -60,7 +59,7 @@ public class UserService {
         UserEntity userEntity = new UserEntity();
         userEntity.setEmail(email)
                 .setLastUsage(new Date())
-                .setPassword(password)
+                .setPassword(hashPassword(password))
                 .setRegistration(new Date());
 
         return userRepository.save(userEntity);

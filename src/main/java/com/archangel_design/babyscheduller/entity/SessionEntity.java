@@ -2,6 +2,7 @@ package com.archangel_design.babyscheduller.entity;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.UUID;
 
 @Entity
 @Table(name = "sessions")
@@ -14,7 +15,7 @@ public class SessionEntity {
     @JoinColumn(name = "user_id")
     private UserEntity user;
 
-    private String sessionId;
+    private String sessionId = UUID.randomUUID().toString();
 
     private Date created;
 

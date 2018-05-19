@@ -10,6 +10,7 @@ import com.archangel_design.babyscheduller.response.LoginResponse;
 import com.archangel_design.babyscheduller.service.UserService;
 import org.apache.http.auth.InvalidCredentialsException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -21,10 +22,15 @@ public class AuthController {
     @Autowired
     UserService userService;
 
+    @PostMapping("/login")
     public LoginResponse login(
             @RequestBody LoginRequest request
     ) throws InvalidCredentialsException {
-        SessionEntity newSession = userService.login(request.getEmail(), request.getPassword());
+        SessionEntity newSession = userService.login(
+                request.getEmail(),
+                request.getPassword(),
+                request.getDeviceId()
+        );
         if (newSession == null)
             throw new InvalidCredentialsException();
         LoginResponse response = new LoginResponse();
@@ -34,6 +40,7 @@ public class AuthController {
                 .setSessionId(newSession.getSessionId());
     }
 
+    @PostMapping("/register")
     public UserDto register(
             @RequestBody RegistrationRequest request
             ) throws InvalidArgumentException {
@@ -42,6 +49,18 @@ public class AuthController {
                 request.getFirstName(),
                 request.getPassword(),
                 request.getPasswordRepeat());
-        return UserDto.build(user);
+
+        UserDto dto = UserDto.build(user);
+
+        if (request.getAutoLogin()) {
+            SessionEntity session = userService.login(
+                    request.getEmail(),
+                    request.getPassword(),
+                    request.getDeviceId()
+            );
+            dto.setSession(session);
+        }
+
+        return dto;
     }
 }

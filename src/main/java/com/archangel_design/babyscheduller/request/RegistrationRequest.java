@@ -6,6 +6,8 @@ public class RegistrationRequest {
     private String firstName;
     private String password;
     private String passwordRepeat;
+    private Boolean autoLogin = false;
+    private String deviceId;
 
     public String getEmail() {
         return email;
@@ -40,6 +42,24 @@ public class RegistrationRequest {
 
     public RegistrationRequest setPasswordRepeat(String passwordRepeat) {
         this.passwordRepeat = passwordRepeat;
+        return this;
+    }
+
+    public Boolean getAutoLogin() {
+        return autoLogin;
+    }
+
+    public RegistrationRequest setAutoLogin(Boolean autoLogin) {
+        this.autoLogin = autoLogin;
+        return this;
+    }
+
+    public String getDeviceId() {
+        return deviceId;
+    }
+
+    public RegistrationRequest setDeviceId(String deviceId) {
+        this.deviceId = deviceId;
         return this;
     }
 }
