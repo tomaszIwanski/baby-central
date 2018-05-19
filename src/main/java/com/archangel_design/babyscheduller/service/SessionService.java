@@ -6,6 +6,7 @@ import com.archangel_design.babyscheduller.exception.InvalidArgumentException;
 import com.archangel_design.babyscheduller.exception.SessionExpiredException;
 import com.archangel_design.babyscheduller.repository.SessionRepository;
 import com.mysql.jdbc.StringUtils;
+import org.apache.catalina.servlet4preview.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +15,9 @@ import java.util.Date;
 
 @Service
 public class SessionService {
+
+    @Autowired
+    HttpServletRequest request;
 
     @Autowired
     SessionRepository repository;
@@ -27,9 +31,9 @@ public class SessionService {
     public SessionEntity getSession(String token) throws SessionExpiredException, InvalidArgumentException {
         if (StringUtils.isNullOrEmpty(token))
             throw new InvalidArgumentException("No session token in request.");
-        if (token.contains("Token "))
-            token = token.replace("Token ", "");
-        SessionEntity session = repository.fetch(token);
+
+        SessionEntity session = repository.fetch(unwrapToken(token));
+
         if (session == null)
             return null;
 
@@ -62,6 +66,21 @@ public class SessionService {
     }
 
     /**
+     * Returns session for current request
+     * or null if no session found
+     *
+     * @return SessionEntity|null
+     */
+    public SessionEntity getCurrentSession() {
+        String token = unwrapToken(request.getHeader("Authorization"));
+
+        if (token == null)
+            return null;
+
+        return getSession(token);
+    }
+
+    /**
      * Returns date 7 days in the future
      *
      * @return Date
@@ -71,6 +90,22 @@ public class SessionService {
         Calendar cal = Calendar.getInstance();
         cal.add(Calendar.DAY_OF_MONTH, 7);
         return cal.getTime();
+    }
+
+    /**
+     * Returns token from given header line
+     *
+     * @param headerLine input from request header
+     * @return session token
+     */
+    private String unwrapToken(String headerLine) {
+        if (StringUtils.isNullOrEmpty(headerLine))
+            return null;
+
+        if (headerLine.contains("Token "))
+            return headerLine.replace("Token ", "");
+
+        return headerLine;
     }
 
 }
