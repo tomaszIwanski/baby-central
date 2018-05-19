@@ -3,9 +3,7 @@ package com.archangel_design.babyscheduller.repository;
 import com.archangel_design.babyscheduller.entity.SessionEntity;
 import org.springframework.stereotype.Repository;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
+import javax.persistence.*;
 import javax.transaction.Transactional;
 
 @Repository
@@ -29,5 +27,25 @@ public class SessionRepository {
 
     public SessionEntity save(SessionEntity session) {
         return em.merge(session);
+    }
+
+    public SessionEntity fetch(String token) {
+        TypedQuery<SessionEntity> q = em.createQuery(
+                "select s from SessionEntity s "
+                        + "where s.sessionId = :token",
+                SessionEntity.class
+        );
+
+        return q.getResultList().stream().findFirst().orElse(null);
+    }
+
+    public void remove(String token) {
+        Query q = em.createQuery(
+                "delete from SessionEntity s "
+                + "where s.sessionId = :token"
+        );
+        q.setParameter("token", token);
+
+        q.executeUpdate();
     }
 }
