@@ -35,6 +35,7 @@ public class SessionRepository {
                         + "where s.sessionId = :token",
                 SessionEntity.class
         );
+        q.setParameter("token", token);
 
         return q.getResultList().stream().findFirst().orElse(null);
     }

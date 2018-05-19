@@ -8,6 +8,7 @@ import com.archangel_design.babyscheduller.request.LoginRequest;
 import com.archangel_design.babyscheduller.request.RegistrationRequest;
 import com.archangel_design.babyscheduller.response.LoginResponse;
 import com.archangel_design.babyscheduller.service.UserService;
+import com.mysql.jdbc.StringUtils;
 import org.apache.http.auth.InvalidCredentialsException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -25,7 +26,9 @@ public class AuthController {
     @PostMapping("/login")
     public LoginResponse login(
             @RequestBody LoginRequest request
-    ) throws InvalidCredentialsException {
+    ) throws InvalidCredentialsException, InvalidArgumentException {
+        if (StringUtils.isNullOrEmpty(request.getDeviceId()))
+            throw new InvalidArgumentException("Missing deviceId field in request.");
         SessionEntity newSession = userService.login(
                 request.getEmail(),
                 request.getPassword(),

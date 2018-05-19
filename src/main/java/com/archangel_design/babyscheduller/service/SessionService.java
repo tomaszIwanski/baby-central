@@ -2,8 +2,10 @@ package com.archangel_design.babyscheduller.service;
 
 import com.archangel_design.babyscheduller.entity.SessionEntity;
 import com.archangel_design.babyscheduller.entity.UserEntity;
+import com.archangel_design.babyscheduller.exception.InvalidArgumentException;
 import com.archangel_design.babyscheduller.exception.SessionExpiredException;
 import com.archangel_design.babyscheduller.repository.SessionRepository;
+import com.mysql.jdbc.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,13 +24,16 @@ public class SessionService {
      * Returns null if no valid session found.
      * Session is being extended by another 7 days.
      */
-    public SessionEntity getSession(String token) throws SessionExpiredException {
+    public SessionEntity getSession(String token) throws SessionExpiredException, InvalidArgumentException {
+        if (StringUtils.isNullOrEmpty(token))
+            throw new InvalidArgumentException("No session token in request.");
         if (token.contains("Token "))
             token = token.replace("Token ", "");
         SessionEntity session = repository.fetch(token);
         if (session == null)
             return null;
-        if (session.getExpiration().after(new Date())) {
+
+        if (new Date().after(session.getExpiration())) {
             repository.remove(token);
             throw new SessionExpiredException();
         }
