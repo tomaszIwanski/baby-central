@@ -18,6 +18,8 @@ public class LocationEntity {
 
     private Date date;
 
+    private String deviceId;
+
     @ManyToOne(targetEntity = UserEntity.class)
     @JoinColumn(name = "user_id")
     private UserEntity user;
@@ -73,6 +75,15 @@ public class LocationEntity {
 
     public LocationEntity setUser(UserEntity user) {
         this.user = user;
+        return this;
+    }
+
+    public String getDeviceId() {
+        return deviceId;
+    }
+
+    public LocationEntity setDeviceId(String deviceId) {
+        this.deviceId = deviceId;
         return this;
     }
 }

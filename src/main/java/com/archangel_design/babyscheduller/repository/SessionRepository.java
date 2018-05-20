@@ -8,10 +8,7 @@ import javax.transaction.Transactional;
 
 @Repository
 @Transactional
-public class SessionRepository {
-
-    @PersistenceContext
-    EntityManager em;
+public class SessionRepository extends GenericRepository {
 
     public void removeSessions(Long userId, String deviceId) {
         Query q = em.createQuery(

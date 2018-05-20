@@ -10,10 +10,7 @@ import javax.transaction.Transactional;
 
 @Service
 @Transactional
-public class UserRepository {
-
-    @PersistenceContext
-    EntityManager em;
+public class UserRepository extends GenericRepository {
 
     /**
      * Returns UserEntity matching criteria
@@ -66,8 +63,8 @@ public class UserRepository {
     public Boolean userExists(String email) {
         TypedQuery<Long> query = em.createQuery(
                 "select count(u) from UserEntity u "
-                + "where lower(u.email) = :email "
-                +"and u.deleted = false",
+                        + "where lower(u.email) = :email "
+                        + "and u.deleted = false",
                 Long.class
         );
         query.setParameter("email", email.toLowerCase());
