@@ -71,9 +71,4 @@ public class UserRepository extends GenericRepository {
 
         return query.getSingleResult() > 0;
     }
-
-
-    public UserEntity save(UserEntity userEntity) {
-        return em.merge(userEntity);
-    }
 }

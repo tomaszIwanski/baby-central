@@ -22,10 +22,6 @@ public class SessionRepository extends GenericRepository {
         q.executeUpdate();
     }
 
-    public SessionEntity save(SessionEntity session) {
-        return em.merge(session);
-    }
-
     public SessionEntity fetch(String token) {
         TypedQuery<SessionEntity> q = em.createQuery(
                 "select s from SessionEntity s "
