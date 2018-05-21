@@ -14,12 +14,21 @@ import java.util.Date;
 
 import static com.mysql.jdbc.StringUtils.isNullOrEmpty;
 
+/**
+ * Service responsible for user operations.
+ */
 @Service
 public class UserService {
 
+    /**
+     * Used to manipulate current session.
+     */
     @Autowired
-    SessionService sessionService;
+    private SessionService sessionService;
 
+    /**
+     * Used to access persistence layer.
+     */
     @Autowired
     private UserRepository userRepository;
 
@@ -30,7 +39,7 @@ public class UserService {
      * @param hash hashed password
      * @return boolean
      */
-    public boolean isPasswordValid(String password, String hash) {
+    public boolean isPasswordValid(final String password, final String hash) {
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         return encoder.matches(password, hash);
     }
@@ -41,7 +50,7 @@ public class UserService {
      * @param passwordRaw plain text password
      * @return hashed password
      */
-    public String hashPassword(String passwordRaw) {
+    public String hashPassword(final String passwordRaw) {
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         return encoder.encode(passwordRaw);
     }
@@ -54,13 +63,16 @@ public class UserService {
      * @param deviceId unique ID of the device being used
      * @return created session
      */
-    public SessionEntity login(String email, String password, String deviceId) {
+    public SessionEntity login(
+            final String email, final String password, final String deviceId) {
         UserEntity user = userRepository.fetch(email);
-        if (user == null)
+        if (user == null) {
             return null;
+        }
 
-        if (isPasswordValid(password, user.getPassword()))
+        if (isPasswordValid(password, user.getPassword())) {
             return sessionService.startSession(user, deviceId);
+        }
 
         // @TODO: register failed login attempt
         return null;
@@ -77,17 +89,23 @@ public class UserService {
      * @throws InvalidArgumentException if case of validation errors
      */
     public UserEntity register(
-            String email, String firstName,
-            String password, String passwordRepeat) throws InvalidArgumentException {
+            final String email, final String firstName,
+            final String password, final String passwordRepeat
+    ) throws InvalidArgumentException {
         if (isNullOrEmpty(email) || isNullOrEmpty(firstName)
-                || isNullOrEmpty(password) || isNullOrEmpty(passwordRepeat))
+                || isNullOrEmpty(password) || isNullOrEmpty(passwordRepeat)) {
             throw new InvalidArgumentException("Missing required field.");
+        }
 
-        if (!password.equals(passwordRepeat))
+        if (!password.equals(passwordRepeat)) {
             throw new InvalidArgumentException("Passwords do not match.");
+        }
 
-        if (userRepository.userExists(email))
-            throw new InvalidArgumentException(String.format("User %s is already registered.", email));
+        if (userRepository.userExists(email)) {
+            throw new InvalidArgumentException(
+                    String.format("User %s is already registered.", email)
+            );
+        }
 
         UserEntity userEntity = new UserEntity();
         userEntity.setEmail(email)
@@ -113,14 +131,15 @@ public class UserService {
      * @param name organization name
      * @return updated user entity
      */
-    public UserEntity createOrganization(String name) {
+    public UserEntity createOrganization(final String name) {
         UserEntity currentUser = sessionService.getCurrentSession().getUser();
 
-        if (currentUser.getOrganization() != null)
+        if (currentUser.getOrganization() != null) {
             throw new InvalidArgumentException(
                     "User is already in organization "
                             + currentUser.getOrganization().getName()
             );
+        }
 
         OrganizationEntity organizationEntity = new OrganizationEntity();
         organizationEntity.setName(name);
@@ -136,7 +155,7 @@ public class UserService {
      * @return updated entity
      * @todo: 21/05/2018 input validation
      */
-    public UserEntity updateProfile(ProfileEntity request) {
+    public UserEntity updateProfile(final ProfileEntity request) {
         UserEntity userEntity = sessionService.getCurrentSession().getUser();
         userEntity.setProfile(request);
 
