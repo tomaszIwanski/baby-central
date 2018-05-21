@@ -10,6 +10,8 @@ public class LocationUpdateRequest {
 
     private Long alt;
 
+    private Long precision;
+
     private Date date;
 
     private String deviceId;
@@ -56,6 +58,15 @@ public class LocationUpdateRequest {
 
     public LocationUpdateRequest setDeviceId(String deviceId) {
         this.deviceId = deviceId;
+        return this;
+    }
+
+    public Long getPrecision() {
+        return precision;
+    }
+
+    public LocationUpdateRequest setPrecision(Long precision) {
+        this.precision = precision;
         return this;
     }
 }

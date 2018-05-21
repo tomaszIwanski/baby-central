@@ -1,6 +1,7 @@
 package com.archangel_design.babyscheduller.repository;
 
 import com.archangel_design.babyscheduller.entity.UserEntity;
+import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityManager;
@@ -8,8 +9,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
 
-@Service
-@Transactional
+@Repository
 public class UserRepository extends GenericRepository {
 
     /**

@@ -47,14 +47,16 @@ public class LocationService extends GenericRepository {
             final Long alt,
             final Long precision,
             final Date date,
-            final UserEntity user
+            final UserEntity user,
+            final String deviceId
     ) {
         LocationEntity entity = new LocationEntity();
         entity.setLon(lon)
                 .setLat(lat)
                 .setAlt(alt)
                 .setDate(date)
-                .setPrecision(precision)
+                .setPrec(precision)
+                .setDeviceId(deviceId)
                 .setUser(user);
 
         List<LocationEntity> lastLocations = fetchRecentLocations(user);

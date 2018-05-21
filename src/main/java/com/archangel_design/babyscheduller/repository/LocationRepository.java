@@ -17,7 +17,6 @@ public class LocationRepository extends GenericRepository {
                 LocationEntity.class
         );
         q.setParameter("uid", userId);
-        q.setParameter("limit", limit);
         q.setMaxResults(limit);
 
         return q.getResultList();

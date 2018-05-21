@@ -59,7 +59,7 @@ public class LocationEntity {
     /**
      * Location precision.
      */
-    private Long precision;
+    private Long prec;
 
     /**
      * Sender's device id.
@@ -203,8 +203,8 @@ public class LocationEntity {
      *
      * @return precision
      */
-    public Long getPrecision() {
-        return precision;
+    public Long getPrec() {
+        return prec;
     }
 
     /**
@@ -212,8 +212,8 @@ public class LocationEntity {
      * @param newPrecision precision
      * @return this
      */
-    public LocationEntity setPrecision(final Long newPrecision) {
-        this.precision = newPrecision;
+    public LocationEntity setPrec(final Long newPrecision) {
+        prec = newPrecision;
         return this;
     }
 
@@ -238,6 +238,12 @@ public class LocationEntity {
 
         if (getAlt().compareTo(((LocationEntity) obj).getAlt()) != 0) {
             return false;
+        }
+
+        if (getDeviceId() != null) {
+            if (!getDeviceId().equals(((LocationEntity) obj).getDeviceId())) {
+                return false;
+            }
         }
 
         return getDate().equals(((LocationEntity) obj).getDate());

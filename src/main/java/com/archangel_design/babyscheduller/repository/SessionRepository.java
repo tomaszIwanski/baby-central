@@ -7,7 +7,6 @@ import javax.persistence.*;
 import javax.transaction.Transactional;
 
 @Repository
-@Transactional
 public class SessionRepository extends GenericRepository {
 
     public void removeSessions(Long userId, String deviceId) {
