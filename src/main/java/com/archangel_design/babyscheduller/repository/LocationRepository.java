@@ -1,3 +1,9 @@
+/*
+ * Baby Central
+ * Copyright (c) 2018.
+ * Rafal Martinez-Marjanski
+ */
+
 package com.archangel_design.babyscheduller.repository;
 
 import com.archangel_design.babyscheduller.entity.LocationEntity;
@@ -6,9 +12,19 @@ import org.springframework.stereotype.Repository;
 import javax.persistence.TypedQuery;
 import java.util.List;
 
+/**
+ * Persistence layer for location services
+ */
 @Repository
 public class LocationRepository extends GenericRepository {
 
+    /**
+     * Returns <code>limit</code> last location updates.
+     *
+     * @param userId ID of the user
+     * @param limit integer
+     * @return recent location updates
+     */
     public List<LocationEntity> fetchRecent(Long userId, int limit) {
         TypedQuery<LocationEntity> q = em.createQuery(
                 "select l from LocationEntity l "
