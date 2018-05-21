@@ -1,89 +1,245 @@
+/*
+ * Baby Central
+ * Application for 21'st century parents
+ * @author Rafal Martinez-Marjanski
+ */
+
 package com.archangel_design.babyscheduller.entity;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+import javax.persistence.Id;
+import javax.persistence.GeneratedValue;
+import javax.persistence.ManyToOne;
+import javax.persistence.JoinColumn;
 import java.util.Date;
 
+/**
+ * LocationEntity.
+ */
 @Entity
 @Table(name = "locations")
 public class LocationEntity {
+    /**
+     * Numerical unique identifier.
+     */
     @Id
     @GeneratedValue
     private Long id;
 
+    /**
+     * Latitude.
+     */
     private Long lat;
 
+    /**
+     * Longitude.
+     */
     private Long lon;
 
+    /**
+     * Altitude.
+     */
     private Long alt;
 
+    /**
+     * Location update date.
+     */
     private Date date;
 
+    /**
+     * Location precision.
+     */
+    private Long precision;
+
+    /**
+     * Sender's device id.
+     */
     private String deviceId;
 
+    /**
+     * Sender.
+     */
     @ManyToOne(targetEntity = UserEntity.class)
     @JoinColumn(name = "user_id")
     private UserEntity user;
 
+    /**
+     *
+     * @return Id
+     */
     public Long getId() {
         return id;
     }
 
-    public LocationEntity setId(Long id) {
+    /**
+     *
+     * @param newId id
+     * @return this
+     */
+    public LocationEntity setId(final Long newId) {
         this.id = id;
         return this;
     }
 
+    /**
+     *
+     * @return latitude
+     */
     public Long getLat() {
         return lat;
     }
 
-    public LocationEntity setLat(Long lat) {
-        this.lat = lat;
+    /**
+     *
+     * @param newLat latitude
+     * @return this
+     */
+    public LocationEntity setLat(final Long newLat) {
+        this.lat = newLat;
         return this;
     }
 
+    /**
+     *
+     * @return longitude
+     */
     public Long getLon() {
         return lon;
     }
 
-    public LocationEntity setLon(Long lon) {
-        this.lon = lon;
+    /**
+     *
+     * @param newLon longitude
+     * @return this
+     */
+    public LocationEntity setLon(final Long newLon) {
+        this.lon = newLon;
         return this;
     }
 
+    /**
+     *
+     * @return altitude
+     */
     public Long getAlt() {
         return alt;
     }
 
-    public LocationEntity setAlt(Long alt) {
-        this.alt = alt;
+    /**
+     *
+     * @param newAlt altitude
+     * @return this
+     */
+    public LocationEntity setAlt(final Long newAlt) {
+        this.alt = newAlt;
         return this;
     }
 
+    /**
+     *
+     * @return update date
+     */
     public Date getDate() {
         return date;
     }
 
-    public LocationEntity setDate(Date date) {
-        this.date = date;
+    /**
+     *
+     * @param newDate update date
+     * @return this
+     */
+    public LocationEntity setDate(final Date newDate) {
+        this.date = newDate;
         return this;
     }
 
+    /**
+     *
+     * @return this
+     */
     public UserEntity getUser() {
         return user;
     }
 
-    public LocationEntity setUser(UserEntity user) {
-        this.user = user;
+    /**
+     *
+     * @param newUser sender
+     * @return this
+     */
+    public LocationEntity setUser(final UserEntity newUser) {
+        this.user = newUser;
         return this;
     }
 
+    /**
+     *
+     * @return device ID
+     */
     public String getDeviceId() {
         return deviceId;
     }
 
-    public LocationEntity setDeviceId(String deviceId) {
-        this.deviceId = deviceId;
+    /**
+     *
+     * @param newDeviceId string device ID
+     * @return this
+     */
+    public LocationEntity setDeviceId(final String newDeviceId) {
+        this.deviceId = newDeviceId;
         return this;
+    }
+
+    /**
+     *
+     * @return precision
+     */
+    public Long getPrecision() {
+        return precision;
+    }
+
+    /**
+     *
+     * @param newPrecision precision
+     * @return this
+     */
+    public LocationEntity setPrecision(final Long newPrecision) {
+        this.precision = newPrecision;
+        return this;
+    }
+
+    /**
+     *
+     * @param obj object to compare
+     * @return true id objects are the same
+     */
+    @Override
+    public boolean equals(final Object obj) {
+        if (!(obj instanceof LocationEntity)) {
+            return false;
+        }
+
+        if (getLat().compareTo(((LocationEntity) obj).getLat()) != 0) {
+            return false;
+        }
+
+        if (getLon().compareTo(((LocationEntity) obj).getLon()) != 0) {
+            return false;
+        }
+
+        if (getAlt().compareTo(((LocationEntity) obj).getAlt()) != 0) {
+            return false;
+        }
+
+        return getDate().equals(((LocationEntity) obj).getDate());
+    }
+
+    /**
+     *
+     * @return integer hash code
+     */
+    @Override
+    public int hashCode() {
+        return super.hashCode();
     }
 }
