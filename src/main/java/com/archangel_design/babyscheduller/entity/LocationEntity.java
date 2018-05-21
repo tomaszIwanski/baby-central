@@ -6,6 +6,8 @@
 
 package com.archangel_design.babyscheduller.entity;
 
+import com.archangel_design.babyscheduller.service.LocationService;
+
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.persistence.Id;
@@ -20,6 +22,13 @@ import java.util.Date;
 @Entity
 @Table(name = "locations")
 public class LocationEntity {
+
+    /**
+     * Minimum distance required to assume that
+     * location has changed.
+     */
+    private static final int MIN_DISTANCE_METERS = 30;
+
     /**
      * Numerical unique identifier.
      */
@@ -232,6 +241,21 @@ public class LocationEntity {
         }
 
         return getDate().equals(((LocationEntity) obj).getDate());
+    }
+
+    /**
+     *
+     * @param otherLocation location to compare with
+     * @return true if closer than 30 meters
+     */
+    public Boolean close(final LocationEntity otherLocation) {
+        Double dist = LocationService.distance(
+                getLat(), otherLocation.getLat(),
+                getLon(), otherLocation.getLon(),
+                getAlt(), otherLocation.getAlt()
+        );
+
+        return dist <= MIN_DISTANCE_METERS;
     }
 
     /**
