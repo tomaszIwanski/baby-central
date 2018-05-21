@@ -44,6 +44,10 @@ public class UserEntity {
     @JoinColumn(name = "organization_id")
     private OrganizationEntity organization;
 
+    @ManyToOne(targetEntity = ProfileEntity.class)
+    @JoinColumn(name = "profile_id")
+    private ProfileEntity profile;
+
     public Long getId() {
         return id;
     }
@@ -122,6 +126,15 @@ public class UserEntity {
 
     public UserEntity setOrganization(OrganizationEntity organization) {
         this.organization = organization;
+        return this;
+    }
+
+    public ProfileEntity getProfile() {
+        return profile;
+    }
+
+    public UserEntity setProfile(ProfileEntity profile) {
+        this.profile = profile;
         return this;
     }
 }

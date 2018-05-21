@@ -1,6 +1,7 @@
 package com.archangel_design.babyscheduller.service;
 
 import com.archangel_design.babyscheduller.entity.OrganizationEntity;
+import com.archangel_design.babyscheduller.entity.ProfileEntity;
 import com.archangel_design.babyscheduller.entity.SessionEntity;
 import com.archangel_design.babyscheduller.entity.UserEntity;
 import com.archangel_design.babyscheduller.exception.InvalidArgumentException;
@@ -40,7 +41,7 @@ public class UserService {
         if (isPasswordValid(password, user.getPassword()))
             return sessionService.startSession(user, deviceId);
 
-        // register failed login attempt
+        // @TODO: register failed login attempt
         return null;
     }
 
@@ -84,5 +85,19 @@ public class UserService {
         currentUser.setOrganization(organizationEntity);
 
         return userRepository.save(currentUser);
+    }
+
+    /**
+     * Updates user profile with given information (overwrite)
+     *
+     * @param request current user information
+     * @return updated entity
+     * @todo: 21/05/2018 input validation 
+     */
+    public UserEntity updateProfile(ProfileEntity request) {
+        UserEntity userEntity = sessionService.getCurrentSession().getUser();
+        userEntity.setProfile(request);
+
+        return userRepository.save(userEntity);
     }
 }
