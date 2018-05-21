@@ -29,6 +29,13 @@ public class UserController {
     @PostMapping("/update-profile")
     public void updateProfile() {}
 
+    @PostMapping("/create-organization/{name}")
+    public UserEntity createOrganization(
+            @PathVariable String name
+    ) {
+        return userService.createOrganization(name);
+    }
+
     @PostMapping("/update-location")
     public void reportLocation(
             @RequestBody LocationUpdateRequest request

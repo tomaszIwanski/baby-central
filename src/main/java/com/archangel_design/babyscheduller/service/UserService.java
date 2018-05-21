@@ -1,5 +1,6 @@
 package com.archangel_design.babyscheduller.service;
 
+import com.archangel_design.babyscheduller.entity.OrganizationEntity;
 import com.archangel_design.babyscheduller.entity.SessionEntity;
 import com.archangel_design.babyscheduller.entity.UserEntity;
 import com.archangel_design.babyscheduller.exception.InvalidArgumentException;
@@ -67,5 +68,21 @@ public class UserService {
 
     public UserEntity getCurrentUser() {
         return sessionService.getCurrentSession().getUser();
+    }
+
+    public UserEntity createOrganization(String name) {
+        UserEntity currentUser = sessionService.getCurrentSession().getUser();
+
+        if (currentUser.getOrganization() != null)
+            throw new InvalidArgumentException(
+                    "User is already in organization "
+                            + currentUser.getOrganization().getName()
+            );
+
+        OrganizationEntity organizationEntity = new OrganizationEntity();
+        organizationEntity.setName(name);
+        currentUser.setOrganization(organizationEntity);
+
+        return userRepository.save(currentUser);
     }
 }
