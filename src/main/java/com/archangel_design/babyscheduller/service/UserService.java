@@ -23,16 +23,37 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
+    /**
+     * Compares plain text password with given hash.
+     *
+     * @param password plain text password
+     * @param hash hashed password
+     * @return boolean
+     */
     public boolean isPasswordValid(String password, String hash) {
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         return encoder.matches(password, hash);
     }
 
+    /**
+     * Returns password hash using BCrypt.
+     *
+     * @param passwordRaw plain text password
+     * @return hashed password
+     */
     public String hashPassword(String passwordRaw) {
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         return encoder.encode(passwordRaw);
     }
 
+    /**
+     * Performs login, creates session or registers failed login attempt.
+     *
+     * @param email user email
+     * @param password user password
+     * @param deviceId unique ID of the device being used
+     * @return created session
+     */
     public SessionEntity login(String email, String password, String deviceId) {
         UserEntity user = userRepository.fetch(email);
         if (user == null)
@@ -45,6 +66,16 @@ public class UserService {
         return null;
     }
 
+    /**
+     * Performs user registration.
+     *
+     * @param email valid email (to be verified)
+     * @param firstName first name or a nick name
+     * @param password valid password
+     * @param passwordRepeat password repeated
+     * @return newly created user entity
+     * @throws InvalidArgumentException if case of validation errors
+     */
     public UserEntity register(
             String email, String firstName,
             String password, String passwordRepeat) throws InvalidArgumentException {
@@ -67,10 +98,21 @@ public class UserService {
         return userRepository.save(userEntity);
     }
 
+    /**
+     *
+     * @return entity of current user.
+     */
     public UserEntity getCurrentUser() {
         return sessionService.getCurrentSession().getUser();
     }
 
+    /**
+     * Creates organization which allows multiple
+     * users to collaborate.
+     *
+     * @param name organization name
+     * @return updated user entity
+     */
     public UserEntity createOrganization(String name) {
         UserEntity currentUser = sessionService.getCurrentSession().getUser();
 
@@ -88,11 +130,11 @@ public class UserService {
     }
 
     /**
-     * Updates user profile with given information (overwrite)
+     * Updates user profile with given information (overwrite).
      *
      * @param request current user information
      * @return updated entity
-     * @todo: 21/05/2018 input validation 
+     * @todo: 21/05/2018 input validation
      */
     public UserEntity updateProfile(ProfileEntity request) {
         UserEntity userEntity = sessionService.getCurrentSession().getUser();
