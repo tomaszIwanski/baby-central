@@ -44,7 +44,7 @@ public class UserEntity {
     @JoinColumn(name = "organization_id")
     private OrganizationEntity organization;
 
-    @ManyToOne(targetEntity = ProfileEntity.class)
+    @ManyToOne(targetEntity = ProfileEntity.class, cascade = CascadeType.ALL)
     @JoinColumn(name = "profile_id")
     private ProfileEntity profile;
 

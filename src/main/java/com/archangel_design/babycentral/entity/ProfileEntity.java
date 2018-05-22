@@ -47,7 +47,7 @@ public class ProfileEntity {
     /**
      * List of interests used for suggestions.
      */
-    @OneToMany(targetEntity = InterestEntity.class)
+    @OneToMany(targetEntity = InterestEntity.class, cascade = CascadeType.ALL)
     @JoinColumn(name = "profile_id")
     private List<InterestEntity> interests = new ArrayList<>();
 

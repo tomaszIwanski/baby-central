@@ -7,7 +7,7 @@
 package com.archangel_design.babycentral.entity;
 
 /**
- * Interest category
+ * Interest category.
  */
 public enum InterestCategory {
     ART,

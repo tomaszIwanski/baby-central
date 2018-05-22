@@ -6,6 +6,8 @@
 
 package com.archangel_design.babycentral.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 
 /**
@@ -13,6 +15,7 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "interests")
+@JsonIgnoreProperties({"id"})
 public class InterestEntity {
     /**
      * Unique id.
@@ -28,7 +31,7 @@ public class InterestEntity {
     private String keyword;
 
     /**
-     * Interest category
+     * Interest category.
      */
     @Enumerated(value = EnumType.STRING)
     private InterestCategory category;
