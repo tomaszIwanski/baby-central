@@ -1,9 +1,10 @@
 package com.archangel_design.babycentral.service;
 
+import com.archangel_design.babycentral.entity.BabyEntity;
 import com.archangel_design.babycentral.entity.OrganizationEntity;
-import com.archangel_design.babycentral.entity.ProfileEntity;
 import com.archangel_design.babycentral.entity.SessionEntity;
 import com.archangel_design.babycentral.entity.UserEntity;
+import com.archangel_design.babycentral.entity.ProfileEntity;
 import com.archangel_design.babycentral.exception.InvalidArgumentException;
 import com.archangel_design.babycentral.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -160,5 +161,17 @@ public class UserService {
         userEntity.setProfile(request);
 
         return userRepository.save(userEntity);
+    }
+
+    public BabyEntity createBaby(UserEntity user, BabyEntity babyEntity) {
+        return null;
+    }
+
+    public BabyEntity getBaby(UserEntity user, String babyId) {
+        return null;
+    }
+
+    public BabyEntity updateBabyInformation(BabyEntity babyEntity) {
+        return null;
     }
 }
