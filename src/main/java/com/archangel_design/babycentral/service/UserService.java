@@ -6,11 +6,13 @@ import com.archangel_design.babycentral.entity.SessionEntity;
 import com.archangel_design.babycentral.entity.UserEntity;
 import com.archangel_design.babycentral.entity.ProfileEntity;
 import com.archangel_design.babycentral.exception.InvalidArgumentException;
+import com.archangel_design.babycentral.exception.PersistenceLayerException;
 import com.archangel_design.babycentral.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.Comparator;
 import java.util.Date;
 
 import static com.mysql.jdbc.StringUtils.isNullOrEmpty;
@@ -164,14 +166,23 @@ public class UserService {
     }
 
     public BabyEntity createBaby(UserEntity user, BabyEntity babyEntity) {
-        return null;
+        if (babyEntity.getId() != null || babyEntity.getUuid() != null)
+            throw new InvalidArgumentException("Baby ID provided.");
+
+        user.getBabies().add(babyEntity);
+        user = userRepository.save(user);
+        return user.getBabies().stream().max(Comparator.comparing(
+                BabyEntity::getId)).orElseThrow(PersistenceLayerException::new);
     }
 
-    public BabyEntity getBaby(UserEntity user, String babyId) {
-        return null;
+    public BabyEntity getBaby(String babyId) {
+        return userRepository.fetchBaby(babyId);
     }
 
     public BabyEntity updateBabyInformation(BabyEntity babyEntity) {
+        if (babyEntity.getId() == null)
+            throw new InvalidArgumentException("No baby ID provided");
+        
         return null;
     }
 }

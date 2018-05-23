@@ -92,10 +92,7 @@ public class UserController {
     public BabyEntity getBaby(
             @PathVariable String babyId
     ) {
-        return userService.getBaby(
-                sessionService.getCurrentSession().getUser(),
-                babyId
-        );
+        return userService.getBaby(babyId);
     }
 
     @PostMapping("/baby")

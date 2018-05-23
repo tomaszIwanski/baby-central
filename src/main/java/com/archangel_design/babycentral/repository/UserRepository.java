@@ -1,5 +1,6 @@
 package com.archangel_design.babycentral.repository;
 
+import com.archangel_design.babycentral.entity.BabyEntity;
 import com.archangel_design.babycentral.entity.UserEntity;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
@@ -70,5 +71,15 @@ public class UserRepository extends GenericRepository {
         query.setParameter("email", email.toLowerCase());
 
         return query.getSingleResult() > 0;
+    }
+
+    public BabyEntity fetchBaby(String babyId) {
+        TypedQuery<BabyEntity> query = em.createQuery(
+                "select b from BabyEntity b "
+                + "where b.uuid = :uuid", BabyEntity.class
+        );
+        query.setParameter("uuid", babyId);
+
+        return query.getResultList().stream().findFirst().orElse(null);
     }
 }

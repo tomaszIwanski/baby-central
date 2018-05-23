@@ -32,7 +32,7 @@ public class UserEntity {
 
     private Boolean deleted = false;
 
-    @OneToMany(targetEntity = BabyEntity.class)
+    @OneToMany(targetEntity = BabyEntity.class, cascade = CascadeType.ALL)
     @JoinColumn(name = "parent_id")
     private List<BabyEntity> babies = new ArrayList<>();
 

@@ -1,9 +1,11 @@
 package com.archangel_design.babycentral.entity;
 
 import com.archangel_design.babycentral.enums.Gender;
+import org.hibernate.annotations.CollectionType;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.UUID;
 
 @Entity
 @Table(name = "babies")
@@ -12,6 +14,9 @@ public class BabyEntity {
     @Id
     @GeneratedValue
     private Long id;
+
+    @Column(length = 36)
+    private String uuid = UUID.randomUUID().toString();
 
     @Column(length = 80)
     private String name;
@@ -53,6 +58,15 @@ public class BabyEntity {
 
     public BabyEntity setGender(Gender gender) {
         this.gender = gender;
+        return this;
+    }
+
+    public String getUuid() {
+        return uuid;
+    }
+
+    public BabyEntity setUuid(String uuid) {
+        this.uuid = uuid;
         return this;
     }
 }
