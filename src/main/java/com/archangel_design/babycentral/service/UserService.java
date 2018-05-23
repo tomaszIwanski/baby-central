@@ -172,7 +172,7 @@ public class UserService {
         return userRepository.save(userEntity);
     }
 
-    public BabyEntity createBaby(UserEntity user, BabyEntity babyEntity) {
+    public BabyEntity createBaby(final UserEntity user, final BabyEntity babyEntity) {
         if (babyEntity.getId() != null)
             throw new InvalidArgumentException("Baby ID provided.");
 
@@ -181,9 +181,15 @@ public class UserService {
                 + babyEntity.getName().substring(1)
         );
 
+        user.getBabies().forEach(b -> {
+            if (b.getName().toLowerCase().equals(babyEntity.getName().toLowerCase()))
+                throw new InvalidArgumentException(
+                        "You already have a baby named " + babyEntity.getName());
+        });
+
         user.getBabies().add(babyEntity);
-        user = userRepository.save(user);
-        return user.getBabies().stream().max(Comparator.comparing(
+        UserEntity updatedUser = userRepository.save(user);
+        return updatedUser.getBabies().stream().max(Comparator.comparing(
                 BabyEntity::getId)).orElseThrow(PersistenceLayerException::new);
     }
 
