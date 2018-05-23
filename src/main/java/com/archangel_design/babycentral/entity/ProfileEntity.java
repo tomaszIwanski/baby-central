@@ -6,6 +6,7 @@
 
 package com.archangel_design.babycentral.entity;
 
+import com.archangel_design.babycentral.enums.Gender;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
@@ -43,6 +44,11 @@ public class ProfileEntity {
      * Date of birth.
      */
     private Date dob;
+
+    /**
+     * User gender.
+     */
+    private Gender gender;
 
     /**
      * List of interests used for suggestions.
@@ -97,6 +103,15 @@ public class ProfileEntity {
 
     public ProfileEntity setInterests(List<InterestEntity> interests) {
         this.interests = interests;
+        return this;
+    }
+
+    public Gender getGender() {
+        return gender;
+    }
+
+    public ProfileEntity setGender(Gender gender) {
+        this.gender = gender;
         return this;
     }
 }

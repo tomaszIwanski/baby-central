@@ -1,3 +1,9 @@
+/*
+ * Baby Central
+ * Copyright (c) 2018.
+ * Rafal Martinez-Marjanski
+ */
+
 package com.archangel_design.babycentral.service;
 
 import com.archangel_design.babycentral.entity.BabyEntity;
@@ -8,6 +14,7 @@ import com.archangel_design.babycentral.entity.ProfileEntity;
 import com.archangel_design.babycentral.exception.InvalidArgumentException;
 import com.archangel_design.babycentral.exception.PersistenceLayerException;
 import com.archangel_design.babycentral.repository.UserRepository;
+import com.mysql.jdbc.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -166,8 +173,13 @@ public class UserService {
     }
 
     public BabyEntity createBaby(UserEntity user, BabyEntity babyEntity) {
-        if (babyEntity.getId() != null || babyEntity.getUuid() != null)
+        if (babyEntity.getId() != null)
             throw new InvalidArgumentException("Baby ID provided.");
+
+        babyEntity.setName(
+                babyEntity.getName().substring(0, 1).toUpperCase()
+                + babyEntity.getName().substring(1)
+        );
 
         user.getBabies().add(babyEntity);
         user = userRepository.save(user);
@@ -182,7 +194,7 @@ public class UserService {
     public BabyEntity updateBabyInformation(BabyEntity babyEntity) {
         if (babyEntity.getId() == null)
             throw new InvalidArgumentException("No baby ID provided");
-        
+
         return null;
     }
 }
