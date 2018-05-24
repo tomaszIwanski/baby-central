@@ -33,13 +33,6 @@ public class ScheduleEntity {
     @JoinColumn(name = "user_id")
     private UserEntity user;
 
-    @Enumerated(value = EnumType.STRING)
-    private ScheduleEntryType type;
-
-    private Date start;
-
-    private Date stop;
-
     public Long getId() {
         return id;
     }
@@ -67,30 +60,4 @@ public class ScheduleEntity {
         return this;
     }
 
-    public ScheduleEntryType getType() {
-        return type;
-    }
-
-    public ScheduleEntity setType(ScheduleEntryType type) {
-        this.type = type;
-        return this;
-    }
-
-    public Date getStart() {
-        return start;
-    }
-
-    public ScheduleEntity setStart(Date start) {
-        this.start = start;
-        return this;
-    }
-
-    public Date getStop() {
-        return stop;
-    }
-
-    public ScheduleEntity setStop(Date stop) {
-        this.stop = stop;
-        return this;
-    }
 }
