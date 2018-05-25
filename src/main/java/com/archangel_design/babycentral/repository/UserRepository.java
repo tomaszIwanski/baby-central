@@ -9,12 +9,7 @@ package com.archangel_design.babycentral.repository;
 import com.archangel_design.babycentral.entity.BabyEntity;
 import com.archangel_design.babycentral.entity.UserEntity;
 import org.springframework.stereotype.Repository;
-import org.springframework.stereotype.Service;
-
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
-import javax.transaction.Transactional;
 
 @Repository
 public class UserRepository extends GenericRepository {
@@ -79,6 +74,11 @@ public class UserRepository extends GenericRepository {
         return query.getSingleResult() > 0;
     }
 
+    /**
+     *
+     * @param babyId uuid
+     * @return BabyEntity|null
+     */
     public BabyEntity fetchBaby(String babyId) {
         TypedQuery<BabyEntity> query = em.createQuery(
                 "select b from BabyEntity b "

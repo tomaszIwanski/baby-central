@@ -9,7 +9,12 @@ package com.archangel_design.babycentral.entity;
 import com.archangel_design.babycentral.enums.ScheduleEntryPriority;
 import com.archangel_design.babycentral.enums.ScheduleEntryType;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.util.Date;
 
 @Entity

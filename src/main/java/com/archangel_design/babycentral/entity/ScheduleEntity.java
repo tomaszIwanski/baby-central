@@ -8,15 +8,9 @@ package com.archangel_design.babycentral.entity;
 
 import com.archangel_design.babycentral.enums.ScheduleEntryType;
 
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.Date;
+import java.util.UUID;
 
 @Entity
 @Table(name = "schedule")
@@ -24,6 +18,12 @@ public class ScheduleEntity {
     @Id
     @GeneratedValue
     private Long id;
+
+    @Column(length = 120)
+    private String name;
+
+    @Column(length = 36)
+    private String uuid = UUID.randomUUID().toString();
 
     @ManyToOne(targetEntity = BabyEntity.class, optional = false)
     @JoinColumn(name = "baby_id")
@@ -60,4 +60,21 @@ public class ScheduleEntity {
         return this;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public ScheduleEntity setName(String name) {
+        this.name = name;
+        return this;
+    }
+
+    public String getUuid() {
+        return uuid;
+    }
+
+    public ScheduleEntity setUuid(String uuid) {
+        this.uuid = uuid;
+        return this;
+    }
 }
