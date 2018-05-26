@@ -13,6 +13,8 @@ import com.archangel_design.babycentral.service.ScheduleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/schedule")
 public class ScheduleController {
@@ -29,6 +31,11 @@ public class ScheduleController {
         );
     }
 
+    @GetMapping("/list")
+    public List<ScheduleEntity> getList() {
+        return scheduleService.getList();
+    }
+
     @PutMapping("/entry")
     public ScheduleEntity createEntry(
             @RequestBody CreateScheduleEntryRequest request
@@ -37,7 +44,11 @@ public class ScheduleController {
                 request.getScheduleId(),
                 request.getEntryType(),
                 request.getStart(),
-                request.getStop()
+                request.getStop(),
+                request.getPriority(),
+                request.getRepeatType(),
+                request.getStartDate(),
+                request.getEndDate()
         );
     }
 }

@@ -7,18 +7,23 @@
 package com.archangel_design.babycentral.entity;
 
 import com.archangel_design.babycentral.enums.ScheduleEntryPriority;
+import com.archangel_design.babycentral.enums.ScheduleEntryRepeatType;
 import com.archangel_design.babycentral.enums.ScheduleEntryType;
-
+import lombok.Getter;
+import lombok.Setter;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.sql.Time;
 import java.util.Date;
 
 @Entity
 @Table(name = "schedule_entries")
+@Getter
+@Setter
 public class ScheduleEntryEntity {
 
     @Id
@@ -28,55 +33,17 @@ public class ScheduleEntryEntity {
     @Enumerated(value = EnumType.STRING)
     private ScheduleEntryType type;
 
-    private Date start;
+    private Time start;
 
-    private Date stop;
+    private Time stop;
 
     @Enumerated(EnumType.STRING)
     private ScheduleEntryPriority priority;
 
-    public Long getId() {
-        return id;
-    }
+    @Enumerated(EnumType.STRING)
+    private ScheduleEntryRepeatType repeatType;
 
-    public ScheduleEntryEntity setId(Long id) {
-        this.id = id;
-        return this;
-    }
+    private Date startDate;
 
-    public ScheduleEntryType getType() {
-        return type;
-    }
-
-    public ScheduleEntryEntity setType(ScheduleEntryType type) {
-        this.type = type;
-        return this;
-    }
-
-    public Date getStart() {
-        return start;
-    }
-
-    public ScheduleEntryEntity setStart(Date start) {
-        this.start = start;
-        return this;
-    }
-
-    public Date getStop() {
-        return stop;
-    }
-
-    public ScheduleEntryEntity setStop(Date stop) {
-        this.stop = stop;
-        return this;
-    }
-
-    public ScheduleEntryPriority getPriority() {
-        return priority;
-    }
-
-    public ScheduleEntryEntity setPriority(ScheduleEntryPriority priority) {
-        this.priority = priority;
-        return this;
-    }
+    private Date endDate;
 }

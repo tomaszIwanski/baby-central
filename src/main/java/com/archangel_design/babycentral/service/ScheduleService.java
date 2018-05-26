@@ -8,7 +8,10 @@ package com.archangel_design.babycentral.service;
 
 import com.archangel_design.babycentral.entity.BabyEntity;
 import com.archangel_design.babycentral.entity.ScheduleEntity;
+import com.archangel_design.babycentral.entity.ScheduleEntryEntity;
 import com.archangel_design.babycentral.entity.UserEntity;
+import com.archangel_design.babycentral.enums.ScheduleEntryPriority;
+import com.archangel_design.babycentral.enums.ScheduleEntryRepeatType;
 import com.archangel_design.babycentral.enums.ScheduleEntryType;
 import com.archangel_design.babycentral.exception.InvalidArgumentException;
 import com.archangel_design.babycentral.repository.ScheduleRepository;
@@ -17,7 +20,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.validation.constraints.NotNull;
+import java.sql.Time;
 import java.util.Date;
+import java.util.List;
 
 @Service
 public class ScheduleService {
@@ -53,8 +58,32 @@ public class ScheduleService {
     public ScheduleEntity createEntry(
             @NotNull final String scheduleId,
             @NotNull final ScheduleEntryType entryType,
-            @NotNull final Date start,
-            @NotNull final Date stop) {
-        return null;
+            @NotNull final Time start,
+            @NotNull final Time stop,
+            @NotNull final ScheduleEntryPriority priority,
+            @NotNull final ScheduleEntryRepeatType repeatType,
+            final Date dateStart,
+            final Date dateStop
+            ) {
+        ScheduleEntity scheduleEntity = scheduleRepository.fetch(scheduleId);
+        if (scheduleEntity == null)
+            throw new InvalidArgumentException("Schedule does not exist. " + scheduleId);
+        ScheduleEntryEntity entry = new ScheduleEntryEntity();
+        entry.setPriority(priority);
+                entry.setStart(start);
+                entry.setType(entryType);
+                entry.setStop(stop);
+                entry.setRepeatType(repeatType);
+                entry.setStartDate(dateStart);
+                entry.setEndDate(dateStop);
+        scheduleEntity.getEntries().add(entry);
+
+        return scheduleRepository.save(scheduleEntity);
+    }
+
+    public List<ScheduleEntity> getList() {
+        UserEntity user = sessionService.getCurrentSession().getUser();
+
+        return scheduleRepository.fetchList(user);
     }
 }

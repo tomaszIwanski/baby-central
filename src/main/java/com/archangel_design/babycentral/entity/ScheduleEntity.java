@@ -6,10 +6,13 @@
 
 package com.archangel_design.babycentral.entity;
 
+import com.archangel_design.babycentral.enums.ScheduleEntryPriority;
 import com.archangel_design.babycentral.enums.ScheduleEntryType;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -32,6 +35,10 @@ public class ScheduleEntity {
     @ManyToOne(targetEntity = UserEntity.class, optional = false)
     @JoinColumn(name = "user_id")
     private UserEntity user;
+
+    @OneToMany(targetEntity = ScheduleEntryEntity.class, cascade = CascadeType.ALL)
+    @JoinColumn(name = "schedule_id")
+    private List<ScheduleEntryEntity> entries = new ArrayList<>();
 
     public Long getId() {
         return id;
@@ -75,6 +82,15 @@ public class ScheduleEntity {
 
     public ScheduleEntity setUuid(String uuid) {
         this.uuid = uuid;
+        return this;
+    }
+
+    public List<ScheduleEntryEntity> getEntries() {
+        return entries;
+    }
+
+    public ScheduleEntity setEntries(List<ScheduleEntryEntity> entries) {
+        this.entries = entries;
         return this;
     }
 }

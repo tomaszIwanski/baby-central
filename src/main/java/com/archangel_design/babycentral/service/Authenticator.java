@@ -59,6 +59,12 @@ public class Authenticator extends UsernamePasswordAuthenticationToken {
         if (request.getMethod().equalsIgnoreCase("options"))
             return true;
 
+        if (request.getRequestURI().matches("\\/swagger.*"))
+            return true;
+
+        if (request.getRequestURI().matches("\\/webjars.*"))
+            return true;
+
         SessionEntity s = sessionServiceService.getSession(request.getHeader("Authorization"));
         return s != null;
     }
@@ -70,6 +76,9 @@ public class Authenticator extends UsernamePasswordAuthenticationToken {
 
     @Override
     public boolean equals(Object another) {
+        if (!(another instanceof Authenticator))
+            return false;
+
         return false;
     }
 

@@ -4,6 +4,7 @@ import com.archangel_design.babycentral.entity.SessionEntity;
 import com.archangel_design.babycentral.entity.UserEntity;
 import com.archangel_design.babycentral.exception.InvalidArgumentException;
 import com.archangel_design.babycentral.exception.SessionExpiredException;
+import com.archangel_design.babycentral.exception.UnauthorizedException;
 import com.archangel_design.babycentral.repository.SessionRepository;
 import com.mysql.jdbc.StringUtils;
 import org.apache.catalina.servlet4preview.http.HttpServletRequest;
@@ -28,9 +29,9 @@ public class SessionService {
      * Returns null if no valid session found.
      * Session is being extended by another 7 days.
      */
-    public SessionEntity getSession(String token) throws SessionExpiredException, InvalidArgumentException {
+    public SessionEntity getSession(String token) throws SessionExpiredException, UnauthorizedException {
         if (StringUtils.isNullOrEmpty(token))
-            throw new InvalidArgumentException("No session token in request.");
+            throw new UnauthorizedException("No session token in request.");
 
         SessionEntity session = repository.fetch(unwrapToken(token));
 

@@ -6,16 +6,22 @@
 
 package com.archangel_design.babycentral.request;
 
+import com.archangel_design.babycentral.enums.ScheduleEntryPriority;
+import com.archangel_design.babycentral.enums.ScheduleEntryRepeatType;
 import com.archangel_design.babycentral.enums.ScheduleEntryType;
 import lombok.Getter;
 
+import java.sql.Time;
 import java.util.Date;
 
 @Getter
 public class CreateScheduleEntryRequest {
     private String scheduleId;
     private ScheduleEntryType entryType;
-    private Date start;
-    private Date stop;
-
+    private Time start;
+    private Time stop;
+    private ScheduleEntryPriority priority;
+    private ScheduleEntryRepeatType repeatType;
+    private Date startDate;
+    private Date endDate;
 }
