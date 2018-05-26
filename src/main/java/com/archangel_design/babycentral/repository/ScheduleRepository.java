@@ -7,7 +7,9 @@
 package com.archangel_design.babycentral.repository;
 
 import com.archangel_design.babycentral.entity.ScheduleEntity;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public class ScheduleRepository extends GenericRepository {
 
     public ScheduleEntity save(ScheduleEntity scheduleEntity) {
