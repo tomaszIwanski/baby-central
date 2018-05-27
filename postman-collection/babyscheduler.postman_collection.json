@@ -1,0 +1,396 @@
+{
+	"info": {
+		"name": "babyscheduler",
+		"_postman_id": "c102b643-9351-2037-c152-3d09b6831962",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "registration",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"email\": \"email@domain.com\",\n\t\"firstName\": \"Raff\",\n\t\"password\": \"password\",\n\t\"passwordRepeat\": \"password\",\n\t\"autoLogin\": true,\n\t\"deviceId\": \"random-string\"\n}"
+				},
+				"url": {
+					"raw": "{{bsurl}}/auth/register",
+					"host": [
+						"{{bsurl}}"
+					],
+					"path": [
+						"auth",
+						"register"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "login",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"email\": \"email@domain.com\",\n\t\"password\": \"password\",\n\t\"deviceId\": \"unique-device-id\"\n}"
+				},
+				"url": {
+					"raw": "{{bsurl}}/auth/login",
+					"host": [
+						"{{bsurl}}"
+					],
+					"path": [
+						"auth",
+						"login"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "my-account",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Token {{bstoken}}"
+					}
+				],
+				"body": {},
+				"url": {
+					"raw": "{{bsurl}}/user/my-account",
+					"host": [
+						"{{bsurl}}"
+					],
+					"path": [
+						"user",
+						"my-account"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "update-location",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Token {{bstoken}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"lat\": 121212.23,\n\t\"lon\": 111212.34,\n\t\"alt\": 123,\n\t\"precision\": 10,\n\t\"date\": \"2018-05-20T12:00:00\",\n\t\"deviceId\": \"my-device\"\n}"
+				},
+				"url": {
+					"raw": "{{bsurl}}/user/update-location",
+					"host": [
+						"{{bsurl}}"
+					],
+					"path": [
+						"user",
+						"update-location"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "create organization",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Token {{bstoken}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"lat\": 121212.23,\n\t\"lon\": 111212.34,\n\t\"alt\": 123,\n\t\"precision\": 10,\n\t\"date\": \"2018-05-20T12:00:00\",\n\t\"deviceId\": \"my-device\"\n}"
+				},
+				"url": {
+					"raw": "{{bsurl}}/user/update-location",
+					"host": [
+						"{{bsurl}}"
+					],
+					"path": [
+						"user",
+						"update-location"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "update profile",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Token {{bstoken}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"lastName\": \"Martinez\",\n\t\"countryOfOrigin\": \"Poland\",\n\t\"currentCountry\": \"USA\",\n\t\"dob\": \"1982-10-07T00:00:00\",\n\t\"gender\": \"MALE\",\n\t\"interests\": [{\n\t\t\"keyword\": \"Classical\",\n\t\t\"category\": \"MUSIC\"\n\t}]\n}"
+				},
+				"url": {
+					"raw": "{{bsurl}}/user/update-profile",
+					"host": [
+						"{{bsurl}}"
+					],
+					"path": [
+						"user",
+						"update-profile"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "create baby",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Token {{bstoken}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\": \"srchimedes\",\n\t\"birthday\": \"2015-08-15T16:30:00\",\n\t\"gender\": \"MALE\"\n}"
+				},
+				"url": {
+					"raw": "{{bsurl}}/user/baby",
+					"host": [
+						"{{bsurl}}"
+					],
+					"path": [
+						"user",
+						"baby"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "create schedule",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Token {{bstoken}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\": \"Default schedule\",\n\t\"babyId\": \"172944bb-864e-4d5e-a7f6-08309caf2eca\"\n}"
+				},
+				"url": {
+					"raw": "{{bsurl}}/schedule/create-schedule",
+					"host": [
+						"{{bsurl}}"
+					],
+					"path": [
+						"schedule",
+						"create-schedule"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "schedule list",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Token {{bstoken}}"
+					}
+				],
+				"body": {},
+				"url": {
+					"raw": "{{bsurl}}/schedule/list",
+					"host": [
+						"{{bsurl}}"
+					],
+					"path": [
+						"schedule",
+						"list"
+					]
+				},
+				"description": ""
+			},
+			"response": [
+				{
+					"id": "1b557689-5d86-4bb5-ae12-2f01af3abb6f",
+					"name": "schedule list",
+					"originalRequest": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Token {{bstoken}}"
+							}
+						],
+						"body": {},
+						"url": {
+							"raw": "{{bsurl}}/schedule/list",
+							"host": [
+								"{{bsurl}}"
+							],
+							"path": [
+								"schedule",
+								"list"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"_postman_previewtype": "text",
+					"header": [
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, no-store, max-age=0, must-revalidate",
+							"name": "Cache-Control",
+							"description": "Tells all caching mechanisms from server to client whether they may cache this object. It is measured in seconds"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json;charset=UTF-8",
+							"name": "Content-Type",
+							"description": "The mime type of this content"
+						},
+						{
+							"key": "Date",
+							"value": "Sat, 26 May 2018 08:16:49 GMT",
+							"name": "Date",
+							"description": "The date and time that the message was sent"
+						},
+						{
+							"key": "Expires",
+							"value": "0",
+							"name": "Expires",
+							"description": "Gives the date/time after which the response is considered stale"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache",
+							"name": "Pragma",
+							"description": "Implementation-specific headers that may have various effects anywhere along the request-response chain."
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked",
+							"name": "Transfer-Encoding",
+							"description": "The form of encoding used to safely transfer the entity to the user. Currently defined methods are: chunked, compress, deflate, gzip, identity."
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff",
+							"name": "X-Content-Type-Options",
+							"description": "The only defined value, \"nosniff\", prevents Internet Explorer from MIME-sniffing a response away from the declared content-type"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY",
+							"name": "X-Frame-Options",
+							"description": "Clickjacking protection: \"deny\" - no rendering within a frame, \"sameorigin\" - no rendering if origin mismatch"
+						},
+						{
+							"key": "X-XSS-Protection",
+							"value": "1; mode=block",
+							"name": "X-XSS-Protection",
+							"description": "Cross-site scripting (XSS) filter"
+						}
+					],
+					"cookie": [],
+					"responseTime": 847,
+					"body": "[{\"id\":27,\"name\":\"Default schedule\",\"uuid\":\"b32f5e28-9e2d-4d1a-ba8b-bd088dbd9b1a\",\"baby\":{\"id\":25,\"uuid\":\"172944bb-864e-4d5e-a7f6-08309caf2eca\",\"name\":\"Archimedes\",\"birthday\":\"2015-08-15T16:30:00.000+0000\",\"gender\":\"MALE\"},\"user\":{\"uuid\":\"54c5f11d-9c7c-4b68-b7b3-7a2e538aac51\",\"email\":\"email@domain.com\",\"registration\":\"2018-05-19T09:20:43.000+0000\",\"lastUsage\":\"2018-05-19T09:20:43.000+0000\",\"babies\":[{\"id\":25,\"uuid\":\"172944bb-864e-4d5e-a7f6-08309caf2eca\",\"name\":\"Archimedes\",\"birthday\":\"2015-08-15T16:30:00.000+0000\",\"gender\":\"MALE\"},{\"id\":26,\"uuid\":\"cdc831c0-e334-47ae-add8-b556389f0fee\",\"name\":\"Srchimedes\",\"birthday\":\"2015-08-15T16:30:00.000+0000\",\"gender\":\"MALE\"}],\"organization\":{\"name\":\"My organization\",\"creationDate\":\"2018-05-21T16:00:52.000+0000\"},\"profile\":{\"lastName\":\"Martinez\",\"countryOfOrigin\":\"Poland\",\"currentCountry\":\"USA\",\"dob\":\"1982-10-07T00:00:00.000+0000\",\"gender\":null,\"interests\":[{\"keyword\":\"Classical\",\"category\":\"MUSIC\"}]}},\"entries\":[]}]"
+				}
+			]
+		},
+		{
+			"name": "create entry",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Token {{bstoken}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"scheduleId\": \"b32f5e28-9e2d-4d1a-ba8b-bd088dbd9b1a\",\n\t\"entryType\": \"SLEEP\",\n\t\"start\": \"21:00:00\",\n\t\"stop\": \"06:30:00\",\n\t\"priority\": \"MEDIUM\",\n\t\"repeatType\": \"DAILY\",\n\t\"startDate\": \"2015-01-01T00:00:00\",\n\t\"endDate\": \"2020-01-01T00:00:00\"\n}"
+				},
+				"url": {
+					"raw": "{{bsurl}}/schedule/entry",
+					"host": [
+						"{{bsurl}}"
+					],
+					"path": [
+						"schedule",
+						"entry"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}
