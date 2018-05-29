@@ -31,7 +31,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/user")
-@Api("User operations")
+@Api(tags = "User operations")
 public class UserController {
 
     @Autowired

@@ -10,6 +10,7 @@ import com.archangel_design.babycentral.entity.ScheduleEntity;
 import com.archangel_design.babycentral.request.CreateScheduleEntryRequest;
 import com.archangel_design.babycentral.request.CreateScheduleRequest;
 import com.archangel_design.babycentral.service.ScheduleService;
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,6 +18,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/schedule")
+@Api(tags = "Schedule management")
 public class ScheduleController {
 
     @Autowired

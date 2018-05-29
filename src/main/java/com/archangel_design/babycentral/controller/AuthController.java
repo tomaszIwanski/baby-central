@@ -9,6 +9,7 @@ import com.archangel_design.babycentral.request.RegistrationRequest;
 import com.archangel_design.babycentral.response.LoginResponse;
 import com.archangel_design.babycentral.service.UserService;
 import com.mysql.jdbc.StringUtils;
+import io.swagger.annotations.Api;
 import org.apache.http.auth.InvalidCredentialsException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/auth")
+@Api(tags = "Authorization")
 public class AuthController {
 
     @Autowired
