@@ -13,6 +13,8 @@ import com.archangel_design.babycentral.request.LocationUpdateRequest;
 import com.archangel_design.babycentral.service.LocationService;
 import com.archangel_design.babycentral.service.SessionService;
 import com.archangel_design.babycentral.service.UserService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -29,6 +31,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/user")
+@Api("User operations")
 public class UserController {
 
     @Autowired
@@ -79,7 +82,8 @@ public class UserController {
         return sessionService.getCurrentSession().getUser().getBabies();
     }
 
-    @PutMapping("/baby")
+    @PostMapping("/baby")
+    @ApiOperation("Create a baby entity")
     public BabyEntity createBaby(
             @RequestBody BabyEntity babyEntity
     ) {
@@ -95,7 +99,7 @@ public class UserController {
         return userService.getBaby(babyId);
     }
 
-    @PostMapping("/baby")
+    @PutMapping("/baby")
     public BabyEntity updateBabyInformation(
             @RequestBody BabyEntity babyEntity
     ) {

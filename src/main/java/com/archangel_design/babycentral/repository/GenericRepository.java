@@ -1,32 +1,47 @@
 package com.archangel_design.babycentral.repository;
 
-import com.archangel_design.babycentral.entity.LocationEntity;
-import com.archangel_design.babycentral.entity.SessionEntity;
-import com.archangel_design.babycentral.entity.UserEntity;
+import com.archangel_design.babycentral.entity.*;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.transaction.Transactional;
+import javax.validation.constraints.NotNull;
 
 @Repository
-@Transactional
-public class GenericRepository {
-    @PersistenceContext
-    protected EntityManager em;
+@Transactional(readOnly = true)
+public abstract class GenericRepository {
 
+    @PersistenceContext
+    EntityManager em;
+
+    @Transactional()
     public SessionEntity save(SessionEntity session) {
         return em.merge(session);
     }
 
+    @Transactional()
     public UserEntity save(UserEntity userEntity) {
         return em.merge(userEntity);
     }
 
+    @Transactional()
     public LocationEntity save(LocationEntity locationEntity) {
         return em.merge(locationEntity);
     }
 
+
+    @Transactional()
+    public ScheduleEntity save(@NotNull final ScheduleEntity scheduleEntity) {
+        return em.merge(scheduleEntity);
+    }
+
+    @Transactional()
+    public ScheduleEntryEntity save(@NotNull final ScheduleEntryEntity scheduleEntryEntity) {
+        return em.merge(scheduleEntryEntity);
+    }
+
+    @Transactional()
     public Object save(Object object) {
         return em.merge(object);
     }

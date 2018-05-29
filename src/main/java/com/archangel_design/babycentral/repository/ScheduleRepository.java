@@ -10,6 +10,7 @@ import com.archangel_design.babycentral.entity.ScheduleEntity;
 import com.archangel_design.babycentral.entity.ScheduleEntryEntity;
 import com.archangel_design.babycentral.entity.UserEntity;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.TypedQuery;
 import javax.validation.constraints.NotNull;
@@ -17,14 +18,6 @@ import java.util.List;
 
 @Repository
 public class ScheduleRepository extends GenericRepository {
-
-    public ScheduleEntity save(@NotNull final ScheduleEntity scheduleEntity) {
-        return em.merge(scheduleEntity);
-    }
-
-    public ScheduleEntryEntity save(@NotNull final ScheduleEntryEntity scheduleEntryEntity) {
-        return em.merge(scheduleEntryEntity);
-    }
 
     public ScheduleEntity fetch(@NotNull final String scheduleId) {
         TypedQuery<ScheduleEntity> query = em.createQuery(
