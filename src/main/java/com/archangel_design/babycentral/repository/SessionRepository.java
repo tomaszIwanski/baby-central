@@ -9,6 +9,7 @@ import javax.transaction.Transactional;
 @Repository
 public class SessionRepository extends GenericRepository {
 
+    @Transactional()
     public void removeSessions(Long userId, String deviceId) {
         Query q = em.createQuery(
                 "delete from SessionEntity s "
