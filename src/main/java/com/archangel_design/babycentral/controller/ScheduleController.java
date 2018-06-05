@@ -29,7 +29,7 @@ public class ScheduleController {
             @RequestBody CreateScheduleRequest request
     ) {
         return scheduleService.createSchedule(
-                request.getBabyId(), request.getName()
+                request.getBabyUuid(), request.getName()
         );
     }
 
@@ -38,13 +38,14 @@ public class ScheduleController {
         return scheduleService.getList();
     }
 
-    @PutMapping("/entry")
+    @PostMapping("/entry/{scheduleId}")
     public ScheduleEntity createEntry(
+            @PathVariable String scheduleId,
             @RequestBody CreateScheduleEntryRequest request
     ) {
         return scheduleService.createEntry(
-                request.getScheduleId(),
-                request.getEntryType(),
+                scheduleId,
+                request.getType(),
                 request.getStart(),
                 request.getStop(),
                 request.getPriority(),
