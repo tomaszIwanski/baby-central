@@ -54,4 +54,11 @@ public class ScheduleController {
                 request.getEndDate()
         );
     }
+
+    @GetMapping("/fetch/{uuid}")
+    public ScheduleEntity fetchSchedule(
+            @PathVariable String uuid
+    ) {
+        return scheduleService.fetch(uuid);
+    }
 }

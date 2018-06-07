@@ -86,4 +86,8 @@ public class ScheduleService {
 
         return scheduleRepository.fetchList(user);
     }
+
+    public ScheduleEntity fetch(String uuid) {
+        return scheduleRepository.fetch(uuid);
+    }
 }
