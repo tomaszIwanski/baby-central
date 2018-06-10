@@ -11,6 +11,8 @@ import com.archangel_design.babycentral.enums.ScheduleEntryRepeatType;
 import com.archangel_design.babycentral.enums.ScheduleEntryType;
 import lombok.Getter;
 import lombok.Setter;
+
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -29,6 +31,9 @@ public class ScheduleEntryEntity {
     @Id
     @GeneratedValue
     private Long id;
+
+    @Column(length = 120)
+    private String title;
 
     @Enumerated(value = EnumType.STRING)
     private ScheduleEntryType type;
