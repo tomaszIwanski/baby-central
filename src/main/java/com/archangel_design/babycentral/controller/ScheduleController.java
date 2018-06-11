@@ -40,9 +40,9 @@ public class ScheduleController {
 
     @GetMapping("/list/{babyUuid}")
     public List<ScheduleEntity> getListForBaby(
-            @PathVariable String uuid
+            @PathVariable String babyUuid
     ) {
-        return scheduleService.getList(uuid);
+        return scheduleService.getList(babyUuid);
     }
 
     @PostMapping("/entry/{scheduleId}")
