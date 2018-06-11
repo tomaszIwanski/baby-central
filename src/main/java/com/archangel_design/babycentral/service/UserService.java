@@ -15,6 +15,7 @@ import com.archangel_design.babycentral.exception.InvalidArgumentException;
 import com.archangel_design.babycentral.exception.PersistenceLayerException;
 import com.archangel_design.babycentral.repository.UserRepository;
 import com.mysql.jdbc.StringUtils;
+import org.apache.commons.validator.routines.EmailValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -42,11 +43,14 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    EmailService emailService;
+
     /**
      * Compares plain text password with given hash.
      *
      * @param password plain text password
-     * @param hash hashed password
+     * @param hash     hashed password
      * @return boolean
      */
     public boolean isPasswordValid(final String password, final String hash) {
@@ -68,7 +72,7 @@ public class UserService {
     /**
      * Performs login, creates session or registers failed login attempt.
      *
-     * @param email user email
+     * @param email    user email
      * @param password user password
      * @param deviceId unique ID of the device being used
      * @return created session
@@ -91,9 +95,9 @@ public class UserService {
     /**
      * Performs user registration.
      *
-     * @param email valid email (to be verified)
-     * @param firstName first name or a nick name
-     * @param password valid password
+     * @param email          valid email (to be verified)
+     * @param firstName      first name or a nick name
+     * @param password       valid password
      * @param passwordRepeat password repeated
      * @return newly created user entity
      * @throws InvalidArgumentException if case of validation errors
@@ -118,7 +122,7 @@ public class UserService {
         }
 
         UserEntity userEntity = new UserEntity();
-        userEntity.setEmail(email)
+        userEntity.setEmail(email.toLowerCase())
                 .setLastUsage(new Date())
                 .setPassword(hashPassword(password))
                 .setRegistration(new Date());
@@ -127,7 +131,6 @@ public class UserService {
     }
 
     /**
-     *
      * @return entity of current user.
      */
     public UserEntity getCurrentUser() {
@@ -178,7 +181,7 @@ public class UserService {
 
         babyEntity.setName(
                 babyEntity.getName().substring(0, 1).toUpperCase()
-                + babyEntity.getName().substring(1)
+                        + babyEntity.getName().substring(1)
         );
 
         user.getBabies().forEach(b -> {
@@ -198,9 +201,43 @@ public class UserService {
     }
 
     public BabyEntity updateBabyInformation(BabyEntity babyEntity) {
-        if (babyEntity.getId() == null)
+        if (babyEntity.getUuid() == null)
             throw new InvalidArgumentException("No baby ID provided");
 
         return null;
+    }
+
+    public Boolean inviteToOrganization(String email) {
+        if (!EmailValidator.getInstance().isValid(email))
+            throw new InvalidArgumentException("Invalid email.");
+        UserEntity userEntity = sessionService.getCurrentSession().getUser();
+
+        email = email.toLowerCase();
+
+        if (email.equals(userEntity.getEmail()))
+            throw new InvalidArgumentException("You cannot invite yourself silly.");
+
+        UserEntity invitee = getOrCreate(email);
+
+        if (invitee.getOrganization() != null)
+            throw new InvalidArgumentException("User is already part of an organization.");
+
+        invitee.setOrganization(userEntity.getOrganization());
+        userRepository.save(invitee);
+
+        return emailService.sendInvitationEmail(email, userEntity);
+    }
+
+    private UserEntity getOrCreate(String email) {
+        UserEntity user = userRepository.fetch(email);
+
+        if (user != null)
+            return user;
+
+        user = new UserEntity();
+        user.setEmail(email)
+            .setInvitationPending(true);
+
+        return userRepository.save(user);
     }
 }

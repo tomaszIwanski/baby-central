@@ -32,6 +32,8 @@ public class UserEntity {
 
     private Boolean deleted = false;
 
+    private Boolean invitationPending = false;
+
     @OneToMany(targetEntity = BabyEntity.class, cascade = CascadeType.ALL)
     @JoinColumn(name = "parent_id")
     private List<BabyEntity> babies = new ArrayList<>();
@@ -135,6 +137,15 @@ public class UserEntity {
 
     public UserEntity setProfile(ProfileEntity profile) {
         this.profile = profile;
+        return this;
+    }
+
+    public Boolean getInvitationPending() {
+        return invitationPending;
+    }
+
+    public UserEntity setInvitationPending(Boolean invitationPending) {
+        this.invitationPending = invitationPending;
         return this;
     }
 }

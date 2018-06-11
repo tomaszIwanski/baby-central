@@ -105,4 +105,11 @@ public class UserController {
     ) {
         return userService.updateBabyInformation(babyEntity);
     }
+
+    @PostMapping("/invite")
+    public Boolean inviteUser(
+            @RequestBody String email
+    ) {
+        return userService.inviteToOrganization(email);
+    }
 }
