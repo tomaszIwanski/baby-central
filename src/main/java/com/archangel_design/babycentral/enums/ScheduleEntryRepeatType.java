@@ -10,5 +10,7 @@ public enum ScheduleEntryRepeatType {
     SINGLE,
     DAILY,
     WEEKLY,
-    WORKDAYS;
+    WORKDAYS,
+    YEARLY,
+    MONTHLY;
 }
