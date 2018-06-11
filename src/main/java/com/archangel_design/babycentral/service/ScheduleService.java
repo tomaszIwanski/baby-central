@@ -90,4 +90,9 @@ public class ScheduleService {
     public ScheduleEntity fetch(String uuid) {
         return scheduleRepository.fetch(uuid);
     }
+
+    public List<ScheduleEntity> getList(String uuid) {
+        UserEntity user = sessionService.getCurrentSession().getUser();
+        return scheduleRepository.fetchList(user, uuid);
+    }
 }

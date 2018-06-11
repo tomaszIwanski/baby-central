@@ -38,6 +38,13 @@ public class ScheduleController {
         return scheduleService.getList();
     }
 
+    @GetMapping("/list/{babyUuid}")
+    public List<ScheduleEntity> getListForBaby(
+            @PathVariable String uuid
+    ) {
+        return scheduleService.getList(uuid);
+    }
+
     @PostMapping("/entry/{scheduleId}")
     public ScheduleEntity createEntry(
             @PathVariable String scheduleId,

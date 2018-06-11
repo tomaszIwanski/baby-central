@@ -22,7 +22,7 @@ public class ScheduleRepository extends GenericRepository {
     public ScheduleEntity fetch(@NotNull final String scheduleId) {
         TypedQuery<ScheduleEntity> query = em.createQuery(
                 "select s from ScheduleEntity s "
-                + "where s.uuid = :id", ScheduleEntity.class
+                        + "where s.uuid = :id", ScheduleEntity.class
         );
 
         query.setParameter("id", scheduleId);
@@ -33,10 +33,23 @@ public class ScheduleRepository extends GenericRepository {
     public List<ScheduleEntity> fetchList(UserEntity user) {
         TypedQuery<ScheduleEntity> query = em.createQuery(
                 "select s from ScheduleEntity s "
-                + "where s.user.id = :uid", ScheduleEntity.class
+                        + "where s.user.id = :uid", ScheduleEntity.class
         );
 
         query.setParameter("uid", user.getId());
+
+        return query.getResultList();
+    }
+
+    public List<ScheduleEntity> fetchList(UserEntity user, String uuid) {
+        TypedQuery<ScheduleEntity> query = em.createQuery(
+                "select s from ScheduleEntity s "
+                        + "where s.user.id = :uid "
+                        + "and s.baby.uuid = :bid", ScheduleEntity.class
+        );
+
+        query.setParameter("uid", user.getId());
+        query.setParameter("bid", uuid);
 
         return query.getResultList();
     }
