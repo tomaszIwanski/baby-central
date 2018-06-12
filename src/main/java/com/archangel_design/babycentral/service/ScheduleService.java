@@ -63,7 +63,8 @@ public class ScheduleService {
             @NotNull final ScheduleEntryPriority priority,
             @NotNull final ScheduleEntryRepeatType repeatType,
             final Date dateStart,
-            final Date dateStop
+            final Date dateStop,
+            final String title
             ) {
         ScheduleEntity scheduleEntity = scheduleRepository.fetch(scheduleId);
         if (scheduleEntity == null)
@@ -76,6 +77,7 @@ public class ScheduleService {
                 entry.setRepeatType(repeatType);
                 entry.setStartDate(dateStart);
                 entry.setEndDate(dateStop);
+                entry.setTitle(title);
         scheduleEntity.getEntries().add(entry);
 
         return scheduleRepository.save(scheduleEntity);

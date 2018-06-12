@@ -16,6 +16,7 @@ import java.util.Date;
 
 @Getter
 public class CreateScheduleEntryRequest {
+    private String title;
     private ScheduleEntryType type;
     private Time start;
     private Time stop;

@@ -58,7 +58,8 @@ public class ScheduleController {
                 request.getPriority(),
                 request.getRepeatType(),
                 request.getStartDate(),
-                request.getEndDate()
+                request.getEndDate(),
+                request.getTitle()
         );
     }
 
