@@ -33,6 +33,7 @@ public class SessionRepository extends GenericRepository {
         return q.getResultList().stream().findFirst().orElse(null);
     }
 
+    @Transactional
     public void remove(String token) {
         Query q = em.createQuery(
                 "delete from SessionEntity s "

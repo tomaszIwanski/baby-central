@@ -22,6 +22,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Comparator;
 import java.util.Date;
+import java.util.List;
 
 import static com.mysql.jdbc.StringUtils.isNullOrEmpty;
 
@@ -252,9 +253,9 @@ public class UserService {
      * Fetches user entity based on email or creates
      * new one if doesn't exist, new entity is marked
      * as created via invitation by other user
-     * 
-     * @param email
-     * @return
+     *
+     * @param email user email
+     * @return created or fetched user
      */
     private UserEntity getOrCreate(String email) {
         UserEntity user = userRepository.fetch(email);
@@ -267,5 +268,20 @@ public class UserService {
             .setInvitationPending(true);
 
         return userRepository.save(user);
+    }
+
+    /**
+     * Returns a list of members of current user's organization
+     * including himself
+     *
+     * @return user list
+     */
+    public List<UserEntity> getOrganizationMembers() {
+        UserEntity userEntity = sessionService.getCurrentSession().getUser();
+
+        if (userEntity.getOrganization() == null)
+            throw new InvalidArgumentException("You have no organization.");
+
+        return userRepository.fetchOrganizationMembers(userEntity.getOrganization());
     }
 }

@@ -7,9 +7,11 @@
 package com.archangel_design.babycentral.repository;
 
 import com.archangel_design.babycentral.entity.BabyEntity;
+import com.archangel_design.babycentral.entity.OrganizationEntity;
 import com.archangel_design.babycentral.entity.UserEntity;
 import org.springframework.stereotype.Repository;
 import javax.persistence.TypedQuery;
+import java.util.List;
 
 @Repository
 public class UserRepository extends GenericRepository {
@@ -107,5 +109,18 @@ public class UserRepository extends GenericRepository {
         query.setParameter("uuid", babyId);
 
         return query.getResultList().stream().findFirst().orElse(null);
+    }
+
+    public List<UserEntity> fetchOrganizationMembers(OrganizationEntity organization) {
+        TypedQuery<UserEntity> query = em.createQuery(
+                "select u from UserEntity u "
+                + "where u.deleted = false "
+                + "and u.organization is not null "
+                + "and u.organization.id = :oid",
+                UserEntity.class
+        );
+        query.setParameter("oid", organization.getId());
+
+        return query.getResultList();
     }
 }
