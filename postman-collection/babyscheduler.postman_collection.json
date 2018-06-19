@@ -272,7 +272,7 @@
 			},
 			"response": [
 				{
-					"id": "1b557689-5d86-4bb5-ae12-2f01af3abb6f",
+					"id": "2a78690a-0bcc-4f5c-935e-6eb4c7fc883d",
 					"name": "schedule list",
 					"originalRequest": {
 						"method": "GET",
@@ -363,7 +363,7 @@
 		{
 			"name": "create entry",
 			"request": {
-				"method": "PUT",
+				"method": "POST",
 				"header": [
 					{
 						"key": "Authorization",
@@ -376,16 +376,70 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"scheduleId\": \"b32f5e28-9e2d-4d1a-ba8b-bd088dbd9b1a\",\n\t\"entryType\": \"SLEEP\",\n\t\"start\": \"21:00:00\",\n\t\"stop\": \"06:30:00\",\n\t\"priority\": \"MEDIUM\",\n\t\"repeatType\": \"DAILY\",\n\t\"startDate\": \"2015-01-01T00:00:00\",\n\t\"endDate\": \"2020-01-01T00:00:00\"\n}"
+					"raw": "{\n\t\"entryType\": \"SLEEP\",\n\t\"start\": \"21:00:00\",\n\t\"stop\": \"06:30:00\",\n\t\"priority\": \"MEDIUM\",\n\t\"repeatType\": \"DAILY\",\n\t\"startDate\": \"2015-01-01T00:00:00\",\n\t\"endDate\": \"2020-01-01T00:00:00\",\n\t\"title\": \"sdfsdfsdf\"\n}"
 				},
 				"url": {
-					"raw": "{{bsurl}}/schedule/entry",
+					"raw": "{{bsurl}}/schedule/entry/42abecba-ba02-4b9b-abf6-8dc40fe3ea57",
 					"host": [
 						"{{bsurl}}"
 					],
 					"path": [
 						"schedule",
-						"entry"
+						"entry",
+						"42abecba-ba02-4b9b-abf6-8dc40fe3ea57"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "baby list",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Token {{bstoken}}"
+					}
+				],
+				"body": {},
+				"url": {
+					"raw": "{{bsurl}}/user/babies",
+					"host": [
+						"{{bsurl}}"
+					],
+					"path": [
+						"user",
+						"babies"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "invite to organization",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Token {{bstoken}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "wrongemail"
+				},
+				"url": {
+					"raw": "{{bsurl}}/user/invite",
+					"host": [
+						"{{bsurl}}"
+					],
+					"path": [
+						"user",
+						"invite"
 					]
 				},
 				"description": ""
