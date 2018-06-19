@@ -112,4 +112,9 @@ public class UserController {
     ) {
         return userService.inviteToOrganization(email);
     }
+
+    @GetMapping("/organization")
+    public List<UserEntity> getOrganizationMembers() {
+        return userService.getOrganizationMembers();
+    }
 }

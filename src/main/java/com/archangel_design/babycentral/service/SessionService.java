@@ -29,7 +29,7 @@ public class SessionService {
      * Returns null if no valid session found.
      * Session is being extended by another 7 days.
      */
-    public SessionEntity getSession(String token) throws SessionExpiredException, UnauthorizedException {
+    public SessionEntity getSession(String token) {
         if (StringUtils.isNullOrEmpty(token))
             throw new UnauthorizedException("No session token in request.");
 
@@ -40,7 +40,7 @@ public class SessionService {
 
         if (new Date().after(session.getExpiration())) {
             repository.remove(token);
-            throw new SessionExpiredException();
+            throw new SessionExpiredException("Session expired.");
         }
 
         session.setExpiration(getExpirationDate());

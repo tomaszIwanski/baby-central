@@ -13,6 +13,6 @@ import org.springframework.stereotype.Service;
 public class EmailService {
 
     public Boolean sendInvitationEmail(String recipient, UserEntity sender) {
-        return false;
+        return true;
     }
 }

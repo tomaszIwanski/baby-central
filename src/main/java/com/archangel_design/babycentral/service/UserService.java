@@ -22,6 +22,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Comparator;
 import java.util.Date;
+import java.util.List;
 
 import static com.mysql.jdbc.StringUtils.isNullOrEmpty;
 
@@ -116,6 +117,16 @@ public class UserService {
         }
 
         if (userRepository.userExists(email)) {
+            // check if user has been invited
+            UserEntity userEntity = userRepository.getUserWithPendingInvitation(email);
+            if (userEntity != null) {
+                userEntity
+                        .setLastUsage(new Date())
+                        .setPassword(hashPassword(password))
+                        .setRegistration(new Date());
+
+                return userRepository.save(userEntity);
+            }
             throw new InvalidArgumentException(
                     String.format("User %s is already registered.", email)
             );
@@ -207,6 +218,13 @@ public class UserService {
         return null;
     }
 
+    /**
+     * Invites user to current organization,
+     * returns true if successful, false otherwise
+     *
+     * @param email invitee's email
+     * @return true on success
+     */
     public Boolean inviteToOrganization(String email) {
         if (!EmailValidator.getInstance().isValid(email))
             throw new InvalidArgumentException("Invalid email.");
@@ -216,6 +234,9 @@ public class UserService {
 
         if (email.equals(userEntity.getEmail()))
             throw new InvalidArgumentException("You cannot invite yourself silly.");
+
+        if (userEntity.getOrganization() == null)
+            throw new InvalidArgumentException("You did not create an organization yet.");
 
         UserEntity invitee = getOrCreate(email);
 
@@ -228,6 +249,14 @@ public class UserService {
         return emailService.sendInvitationEmail(email, userEntity);
     }
 
+    /**
+     * Fetches user entity based on email or creates
+     * new one if doesn't exist, new entity is marked
+     * as created via invitation by other user
+     *
+     * @param email user email
+     * @return created or fetched user
+     */
     private UserEntity getOrCreate(String email) {
         UserEntity user = userRepository.fetch(email);
 
@@ -239,5 +268,20 @@ public class UserService {
             .setInvitationPending(true);
 
         return userRepository.save(user);
+    }
+
+    /**
+     * Returns a list of members of current user's organization
+     * including himself
+     *
+     * @return user list
+     */
+    public List<UserEntity> getOrganizationMembers() {
+        UserEntity userEntity = sessionService.getCurrentSession().getUser();
+
+        if (userEntity.getOrganization() == null)
+            throw new InvalidArgumentException("You have no organization.");
+
+        return userRepository.fetchOrganizationMembers(userEntity.getOrganization());
     }
 }
