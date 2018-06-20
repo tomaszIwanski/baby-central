@@ -45,7 +45,7 @@ public class ShoppingCardController {
     }
 
     @GetMapping("/fetch/{uuid}")
-    public ShoppingCardEntity fetchSchedule(
+    public ShoppingCardEntity fetchShoppingCart(
             @PathVariable String uuid
     ) {
         return shoppingCardService.fetch(uuid);
