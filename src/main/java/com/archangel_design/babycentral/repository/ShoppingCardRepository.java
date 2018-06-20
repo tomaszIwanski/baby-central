@@ -3,7 +3,6 @@ package com.archangel_design.babycentral.repository;
 import com.archangel_design.babycentral.entity.ShoppingCardEntity;
 import com.archangel_design.babycentral.entity.ShoppingCardEntryEntity;
 import com.archangel_design.babycentral.entity.UserEntity;
-import com.archangel_design.babycentral.exception.InvalidArgumentException;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.TypedQuery;

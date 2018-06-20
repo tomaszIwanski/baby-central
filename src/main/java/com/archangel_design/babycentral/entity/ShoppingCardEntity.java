@@ -1,7 +1,10 @@
 package com.archangel_design.babycentral.entity;
 
+import org.hibernate.annotations.CreationTimestamp;
+
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -18,6 +21,10 @@ public class ShoppingCardEntity {
 
     @Column(length = 36)
     private String uuid = UUID.randomUUID().toString();
+
+    @CreationTimestamp
+    @Column(updatable=false)
+    private Date creationDate;
 
     @OneToMany(targetEntity = ShoppingCardEntryEntity.class, cascade = CascadeType.ALL)
     @JoinColumn(name = "shopping_card_id")
