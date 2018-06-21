@@ -63,10 +63,16 @@ public class ShoppingCardService {
         return shoppingCardRepository.fetchList(user, uuid);
     }
 
-    public Boolean toggleIsPurchased(String uuid) {
-        UserEntity user = sessionService.getCurrentSession().getUser();
+    public ShoppingCardEntryEntity toggleIsPurchased(String uuid) {
+        ShoppingCardEntryEntity shoppingCardEntryEntity = shoppingCardRepository.fetchEntry(uuid);
 
-        return shoppingCardRepository.toogleIsPurchased(user, uuid);
+        if(shoppingCardEntryEntity == null) {
+            throw new InvalidArgumentException("shoppingCardEntryEntity does not exist.");
+        }
+
+        shoppingCardEntryEntity.setIsPurchased(!shoppingCardEntryEntity.getIsPurchased());
+
+        return shoppingCardRepository.save(shoppingCardEntryEntity);
     }
 
 }

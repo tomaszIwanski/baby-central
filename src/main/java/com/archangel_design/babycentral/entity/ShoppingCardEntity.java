@@ -21,6 +21,9 @@ public class ShoppingCardEntity {
     @Column(length = 120)
     private String name;
 
+    @Column(columnDefinition = "TEXT")
+    private String description;
+
     @Column(length = 36)
     private String uuid = UUID.randomUUID().toString();
 

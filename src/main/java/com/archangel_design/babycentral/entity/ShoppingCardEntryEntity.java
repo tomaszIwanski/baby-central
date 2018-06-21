@@ -23,9 +23,9 @@ public class ShoppingCardEntryEntity {
     @Column(length = 36)
     private String uuid = UUID.randomUUID().toString();
 
-    @ManyToOne(targetEntity = ShoppingCardEntity.class)
+/*    @ManyToOne(targetEntity = ShoppingCardEntity.class)
     @JoinColumn(name = "shopping_card_id")
-    private ShoppingCardEntity shoppingCardEntity;
+    private ShoppingCardEntity shoppingCardEntity;*/
 
     @CreationTimestamp
     @Column(updatable=false)

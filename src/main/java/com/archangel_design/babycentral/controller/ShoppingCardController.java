@@ -1,6 +1,7 @@
 package com.archangel_design.babycentral.controller;
 
 import com.archangel_design.babycentral.entity.ShoppingCardEntity;
+import com.archangel_design.babycentral.entity.ShoppingCardEntryEntity;
 import com.archangel_design.babycentral.request.CreateShoppingCardEntryRequest;
 import com.archangel_design.babycentral.request.CreateShoppingCardRequest;
 import com.archangel_design.babycentral.service.ShoppingCardService;
@@ -11,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/shoppingCard")
+@RequestMapping("/shopping-card")
 @Api(tags = "Shopping card management")
 public class ShoppingCardController {
 
@@ -51,8 +52,8 @@ public class ShoppingCardController {
         return shoppingCardService.fetch(uuid);
     }
 
-    @GetMapping("/toggleIsPurchased/{uuid}")
-    public Boolean toggleIsPurchased(
+    @GetMapping("/toggle-purchased/{uuid}")
+    public ShoppingCardEntryEntity toggleIsPurchased(
             @PathVariable String uuid
     ) {
         return shoppingCardService.toggleIsPurchased(uuid);

@@ -48,21 +48,13 @@ public class ShoppingCardRepository extends GenericRepository {
         return query.getResultList();
     }
 
-    @Transactional
-    public Boolean toogleIsPurchased(UserEntity user, String uuid) {
+    public ShoppingCardEntryEntity fetchEntry(String uuid) {
         TypedQuery<ShoppingCardEntryEntity> query = em.createQuery(
-                "select b from ShoppingCardEntryEntity b "
-                        + "where b.uuid = :uuid "
-                        + "and b.shoppingCardEntity.user.id = :uid", ShoppingCardEntryEntity.class
+                "select s from ShoppingCardEntryEntity s "
+                        + "where s.uuid = :uuid ", ShoppingCardEntryEntity.class
         );
         query.setParameter("uuid", uuid);
-        query.setParameter("uid", user.getId());
 
-        ShoppingCardEntryEntity shoppingCardEntryEntity = query.getSingleResult();
-        shoppingCardEntryEntity.setIsPurchased(shoppingCardEntryEntity.getIsPurchased() ? false : true);
-        save(shoppingCardEntryEntity);
-
-        return shoppingCardEntryEntity.getIsPurchased();
+        return query.getResultList().stream().findFirst().orElse(null);
     }
-
 }
