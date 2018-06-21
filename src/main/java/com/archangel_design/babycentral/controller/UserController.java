@@ -16,14 +16,11 @@ import com.archangel_design.babycentral.service.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -116,5 +113,25 @@ public class UserController {
     @GetMapping("/organization")
     public List<UserEntity> getOrganizationMembers() {
         return userService.getOrganizationMembers();
+    }
+
+    @GetMapping("/avatar/{uuid}")
+    public ResponseEntity<byte[]> getUserAvatar(@PathVariable final String uuid) {
+        return userService.getUserAvatar(uuid);
+    }
+
+    @PostMapping("/avatar/{uuid}")
+    public UserEntity setUserAvatar(@PathVariable final String uuid, @RequestParam("file") MultipartFile file) throws IOException {
+        return userService.setUserAvatar(uuid, file);
+    }
+
+    @GetMapping("baby/avatar/{uuid}")
+    public ResponseEntity<byte[]> getBabyAvatar(@PathVariable final String uuid) {
+        return userService.getBabyAvatar(uuid);
+    }
+
+    @PostMapping("baby/avatar/{uuid}")
+    public BabyEntity setBabyAvatar(@PathVariable final String uuid, @RequestParam("file") MultipartFile file) throws IOException {
+        return userService.setBabyAvatar(uuid, file);
     }
 }

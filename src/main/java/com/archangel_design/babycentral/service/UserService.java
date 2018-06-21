@@ -17,9 +17,15 @@ import com.archangel_design.babycentral.repository.UserRepository;
 import com.mysql.jdbc.StringUtils;
 import org.apache.commons.validator.routines.EmailValidator;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
@@ -287,5 +293,57 @@ public class UserService {
 
     public UserEntity getUser(String userUuid) {
         return userRepository.fetchByUuid(userUuid);
+    }
+
+    public ResponseEntity getUserAvatar(String uuid) {
+        UserEntity user = userRepository.fetchByUuid(uuid);
+
+        if (user == null)
+            throw new InvalidArgumentException("Invalid uuid.");
+
+        final HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.IMAGE_JPEG);
+
+        return new ResponseEntity<byte[]>(user.getAvatar(), headers,
+                HttpStatus.CREATED);
+    }
+
+    public UserEntity setUserAvatar(String uuid, MultipartFile file) throws IOException {
+        UserEntity user = userRepository.fetchByUuid(uuid);
+
+        if (file.isEmpty())
+            throw new InvalidArgumentException("Empty image.");
+        if (user == null)
+            throw new InvalidArgumentException("Invalid uuid.");
+
+        user.setAvatar(file.getBytes());
+
+        return userRepository.save(user);
+    }
+
+    public ResponseEntity<byte[]> getBabyAvatar(String uuid) {
+        BabyEntity baby = userRepository.fetchBaby(uuid);
+
+        if (baby == null)
+            throw new InvalidArgumentException("Invalid uuid.");
+
+        final HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.IMAGE_JPEG);
+
+        return new ResponseEntity<byte[]>(baby.getAvatar(), headers,
+                HttpStatus.CREATED);
+    }
+
+    public BabyEntity setBabyAvatar(String uuid, MultipartFile file) throws IOException {
+        BabyEntity baby = userRepository.fetchBaby(uuid);
+
+        if (file.isEmpty())
+            throw new InvalidArgumentException("Empty image.");
+        if (baby == null)
+            throw new InvalidArgumentException("Invalid uuid.");
+
+        baby.setAvatar(file.getBytes());
+
+        return userRepository.save(baby);
     }
 }
