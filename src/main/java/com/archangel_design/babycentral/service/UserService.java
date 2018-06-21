@@ -284,4 +284,8 @@ public class UserService {
 
         return userRepository.fetchOrganizationMembers(userEntity.getOrganization());
     }
+
+    public UserEntity getUser(String userUuid) {
+        return userRepository.fetchByUuid(userUuid);
+    }
 }

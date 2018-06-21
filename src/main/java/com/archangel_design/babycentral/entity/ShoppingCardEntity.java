@@ -1,5 +1,7 @@
 package com.archangel_design.babycentral.entity;
 
+import com.archangel_design.babycentral.enums.ScheduleEntryType;
+import com.archangel_design.babycentral.enums.ShoppingCardStatus;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -31,6 +33,9 @@ public class ShoppingCardEntity {
     @Column(updatable=false)
     private Date creationDate;
 
+    @Enumerated(value = EnumType.STRING)
+    private ShoppingCardStatus status = ShoppingCardStatus.DRAFT;
+
     @OneToMany(targetEntity = ShoppingCardEntryEntity.class, cascade = CascadeType.ALL)
     @JoinColumn(name = "shopping_card_id")
     private List<ShoppingCardEntryEntity> entries = new ArrayList<>();
@@ -38,6 +43,10 @@ public class ShoppingCardEntity {
     @ManyToOne(targetEntity = UserEntity.class, optional = false)
     @JoinColumn(name = "user_id")
     private UserEntity user;
+
+    @OneToMany(targetEntity = UserEntity.class)
+    @JoinColumn(name = "assignee_id")
+    private List<UserEntity> assignedUsers = new ArrayList<>();
 
     public Long getId() {
         return id;
@@ -82,5 +91,33 @@ public class ShoppingCardEntity {
     public ShoppingCardEntity setEntries(List<ShoppingCardEntryEntity> entries) {
         this.entries = entries;
         return this;
+    }
+
+    public ShoppingCardStatus getStatus() { return status; }
+
+    public void setStatus(ShoppingCardStatus shoppingCardStatus) { this.status = shoppingCardStatus; }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public Date getCreationDate() {
+        return creationDate;
+    }
+
+    public void setCreationDate(Date creationDate) {
+        this.creationDate = creationDate;
+    }
+
+    public List<UserEntity> getAssignedUsers() {
+        return assignedUsers;
+    }
+
+    public void setAssignedUsers(List<UserEntity> assignedUsers) {
+        this.assignedUsers = assignedUsers;
     }
 }

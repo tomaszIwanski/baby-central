@@ -6,7 +6,6 @@ import com.archangel_design.babycentral.entity.UserEntity;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.TypedQuery;
-import javax.transaction.Transactional;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 
@@ -27,7 +26,8 @@ public class ShoppingCardRepository extends GenericRepository {
     public List<ShoppingCardEntity> fetchList(UserEntity user) {
         TypedQuery<ShoppingCardEntity> query = em.createQuery(
                 "select s from ShoppingCardEntity s "
-                        + "where s.user.id = :uid", ShoppingCardEntity.class
+                        + "where (s.user.id = :uid and not s.status = 'FINISHED') "
+                        + "or (s.assignedUsers.id = :uuid and s.status = 'PUBLISHED')", ShoppingCardEntity.class
         );
 
         query.setParameter("uid", user.getId());
@@ -39,11 +39,11 @@ public class ShoppingCardRepository extends GenericRepository {
         TypedQuery<ShoppingCardEntity> query = em.createQuery(
                 "select s from ShoppingCardEntity s "
                         + "where s.user.id = :uid "
-                        + "and s.baby.uuid = :bid", ShoppingCardEntity.class
+                        + "and s.uuid = :uuid", ShoppingCardEntity.class
         );
 
         query.setParameter("uid", user.getId());
-        query.setParameter("bid", uuid);
+        query.setParameter("uuid", uuid);
 
         return query.getResultList();
     }

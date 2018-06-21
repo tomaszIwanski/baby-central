@@ -59,4 +59,12 @@ public class ShoppingCardController {
         return shoppingCardService.toggleIsPurchased(uuid);
     }
 
+    @PostMapping("/assign/{uuid}")
+    public ShoppingCardEntity assignShoppingCard(
+            @PathVariable String uuid,
+            @RequestBody List<String> users
+    ) {
+        return shoppingCardService.assignShoppingCard(uuid, users);
+    }
+
 }

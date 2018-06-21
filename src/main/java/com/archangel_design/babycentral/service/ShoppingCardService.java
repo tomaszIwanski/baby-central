@@ -16,6 +16,9 @@ public class ShoppingCardService {
     SessionService sessionService;
 
     @Autowired
+    UserService userService;
+
+    @Autowired
     ShoppingCardRepository shoppingCardRepository;
 
     public ShoppingCardEntity createShoppingCard(
@@ -66,13 +69,29 @@ public class ShoppingCardService {
     public ShoppingCardEntryEntity toggleIsPurchased(String uuid) {
         ShoppingCardEntryEntity shoppingCardEntryEntity = shoppingCardRepository.fetchEntry(uuid);
 
-        if(shoppingCardEntryEntity == null) {
+        if (shoppingCardEntryEntity == null)
             throw new InvalidArgumentException("shoppingCardEntryEntity does not exist.");
-        }
 
         shoppingCardEntryEntity.setIsPurchased(!shoppingCardEntryEntity.getIsPurchased());
 
         return shoppingCardRepository.save(shoppingCardEntryEntity);
     }
 
+    public ShoppingCardEntity assignShoppingCard(String uuid, List<String> users) {
+        ShoppingCardEntity shoppingCardEntity = shoppingCardRepository.fetch(uuid);
+
+        if (shoppingCardEntity == null)
+            throw new InvalidArgumentException("shoppingCardEntity does not exist.");
+
+        for (String userUuid : users) {
+            UserEntity userEntity = userService.getUser(userUuid);
+
+            if (userEntity == null)
+                throw new InvalidArgumentException(String.format("User %s does not exist.", userUuid));
+
+            shoppingCardEntity.getAssignedUsers().add(userEntity);
+        }
+
+        return shoppingCardRepository.save(shoppingCardEntity);
+    }
 }
