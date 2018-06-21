@@ -4,6 +4,7 @@ import com.archangel_design.babycentral.entity.SessionEntity;
 import com.archangel_design.babycentral.entity.UserEntity;
 import com.archangel_design.babycentral.entity.dto.UserDto;
 import com.archangel_design.babycentral.exception.InvalidArgumentException;
+import com.archangel_design.babycentral.exception.UnauthorizedException;
 import com.archangel_design.babycentral.request.LoginRequest;
 import com.archangel_design.babycentral.request.RegistrationRequest;
 import com.archangel_design.babycentral.response.LoginResponse;
@@ -37,7 +38,7 @@ public class AuthController {
                 request.getDeviceId()
         );
         if (newSession == null)
-            throw new InvalidCredentialsException();
+            throw new UnauthorizedException();
         LoginResponse response = new LoginResponse();
         return response
                 .setCreated(newSession.getCreated())
