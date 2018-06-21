@@ -14,7 +14,6 @@ import com.archangel_design.babycentral.entity.ProfileEntity;
 import com.archangel_design.babycentral.exception.InvalidArgumentException;
 import com.archangel_design.babycentral.exception.PersistenceLayerException;
 import com.archangel_design.babycentral.repository.UserRepository;
-import com.mysql.jdbc.StringUtils;
 import org.apache.commons.validator.routines.EmailValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;

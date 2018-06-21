@@ -7,7 +7,6 @@
 package com.archangel_design.babycentral.entity;
 
 import com.archangel_design.babycentral.enums.Gender;
-import org.hibernate.annotations.CollectionType;
 
 import javax.persistence.*;
 import java.util.Date;
