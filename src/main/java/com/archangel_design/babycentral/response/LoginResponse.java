@@ -1,5 +1,7 @@
 package com.archangel_design.babycentral.response;
 
+import com.archangel_design.babycentral.entity.UserEntity;
+
 import java.util.Date;
 
 public class LoginResponse {
@@ -9,6 +11,8 @@ public class LoginResponse {
     private Date expiration;
 
     private Date created;
+
+    private UserEntity user;
 
     public String getSessionId() {
         return sessionId;
@@ -35,5 +39,14 @@ public class LoginResponse {
     public LoginResponse setCreated(Date created) {
         this.created = created;
         return this;
+    }
+
+    public LoginResponse setUser(UserEntity user) {
+        this.user = user;
+        return this;
+    }
+
+    public UserEntity getUser() {
+        return user;
     }
 }

@@ -41,6 +41,7 @@ public class AuthController {
             throw new UnauthorizedException();
         LoginResponse response = new LoginResponse();
         return response
+                .setUser(newSession.getUser())
                 .setCreated(newSession.getCreated())
                 .setExpiration(newSession.getExpiration())
                 .setSessionId(newSession.getSessionId());
