@@ -64,7 +64,9 @@ public class ShoppingCardService {
     }
 
     public Boolean toggleIsPurchased(String uuid) {
-        return shoppingCardRepository.toogleIsPurchased(uuid);
+        UserEntity user = sessionService.getCurrentSession().getUser();
+
+        return shoppingCardRepository.toogleIsPurchased(user, uuid);
     }
 
 }

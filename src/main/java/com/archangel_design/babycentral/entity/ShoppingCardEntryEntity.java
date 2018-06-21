@@ -1,5 +1,6 @@
 package com.archangel_design.babycentral.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
@@ -12,6 +13,7 @@ import java.util.UUID;
 @Table(name = "shopping_card_entries")
 @Getter
 @Setter
+@JsonIgnoreProperties(value = {"id"})
 public class ShoppingCardEntryEntity {
 
     @Id
@@ -20,6 +22,10 @@ public class ShoppingCardEntryEntity {
 
     @Column(length = 36)
     private String uuid = UUID.randomUUID().toString();
+
+    @ManyToOne(targetEntity = ShoppingCardEntity.class)
+    @JoinColumn(name = "shopping_card_id")
+    private ShoppingCardEntity shoppingCardEntity;
 
     @CreationTimestamp
     @Column(updatable=false)

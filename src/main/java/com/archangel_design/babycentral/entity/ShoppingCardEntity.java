@@ -1,5 +1,6 @@
 package com.archangel_design.babycentral.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
@@ -10,6 +11,7 @@ import java.util.UUID;
 
 @Entity
 @Table(name = "shopping_card")
+@JsonIgnoreProperties(value = {"id"})
 public class ShoppingCardEntity {
 
     @Id
