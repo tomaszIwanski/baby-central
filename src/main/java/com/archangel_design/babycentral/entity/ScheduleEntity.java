@@ -6,12 +6,8 @@
 
 package com.archangel_design.babycentral.entity;
 
-import com.archangel_design.babycentral.enums.ScheduleEntryPriority;
-import com.archangel_design.babycentral.enums.ScheduleEntryType;
-
 import javax.persistence.*;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 

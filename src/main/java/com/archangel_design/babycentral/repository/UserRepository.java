@@ -123,4 +123,16 @@ public class UserRepository extends GenericRepository {
 
         return query.getResultList();
     }
+
+    public UserEntity fetchByUuid(String userUuid) {
+        TypedQuery<UserEntity> query = em.createQuery(
+                "select u from UserEntity u "
+                        + "where u.uuid = :userUuid ",
+                UserEntity.class
+        );
+
+        query.setParameter("userUuid", userUuid);
+
+        return query.getResultList().stream().findFirst().orElse(null);
+    }
 }
