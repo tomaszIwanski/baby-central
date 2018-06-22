@@ -50,6 +50,10 @@ public class UserEntity {
     @JoinColumn(name = "profile_id")
     private ProfileEntity profile;
 
+    @Lob
+    @Column(columnDefinition = "mediumblob")
+    private byte[] avatar = new byte[0];
+
     public Long getId() {
         return id;
     }
@@ -147,5 +151,13 @@ public class UserEntity {
     public UserEntity setInvitationPending(Boolean invitationPending) {
         this.invitationPending = invitationPending;
         return this;
+    }
+
+    public byte[] getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(byte[] avatar) {
+        this.avatar = avatar;
     }
 }

@@ -1,6 +1,5 @@
 package com.archangel_design.babycentral.entity;
 
-import com.archangel_design.babycentral.enums.ScheduleEntryType;
 import com.archangel_design.babycentral.enums.ShoppingCardStatus;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.CreationTimestamp;

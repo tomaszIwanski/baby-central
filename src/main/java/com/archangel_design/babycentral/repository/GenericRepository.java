@@ -50,6 +50,11 @@ public abstract class GenericRepository {
         return em.merge(scheduleEntryEntity);
     }
 
+    @Transactional
+    public BabyEntity save(@NotNull final BabyEntity babyEntity) {
+        return em.merge(babyEntity);
+    }
+
     @Transactional()
     public Object save(Object object) {
         return em.merge(object);
