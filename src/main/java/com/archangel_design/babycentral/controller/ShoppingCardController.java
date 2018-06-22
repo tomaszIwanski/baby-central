@@ -67,4 +67,25 @@ public class ShoppingCardController {
         return shoppingCardService.assignShoppingCard(uuid, users);
     }
 
+    @GetMapping("/set-status-to-draft/{uuid}")
+    public ShoppingCardEntity setStatusToDraft(
+            @PathVariable String uuid
+    ) {
+        return shoppingCardService.setStatusToDraft(uuid);
+    }
+
+    @GetMapping("/set-status-to-published/{uuid}")
+    public ShoppingCardEntity setStatusToPublished(
+            @PathVariable String uuid
+    ) {
+        return shoppingCardService.setStatusToPublished(uuid);
+    }
+
+    @GetMapping("/set-status-to-finished/{uuid}")
+    public ShoppingCardEntity setStatusToFinished(
+            @PathVariable String uuid
+    ) {
+        return shoppingCardService.setStatusToFinished(uuid);
+    }
+
 }

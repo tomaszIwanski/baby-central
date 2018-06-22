@@ -1,8 +1,10 @@
 package com.archangel_design.babycentral.service;
 
 import com.archangel_design.babycentral.entity.*;
+import com.archangel_design.babycentral.enums.ShoppingCardStatus;
 import com.archangel_design.babycentral.exception.InvalidArgumentException;
 import com.archangel_design.babycentral.repository.ShoppingCardRepository;
+import com.fasterxml.jackson.databind.util.EnumValues;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -94,4 +96,26 @@ public class ShoppingCardService {
 
         return shoppingCardRepository.save(shoppingCardEntity);
     }
+
+    public ShoppingCardEntity setStatusToDraft(String uuid) {
+        return this.setStatus(uuid, ShoppingCardStatus.DRAFT);
+    }
+
+    public ShoppingCardEntity setStatusToPublished(String uuid) {
+        return this.setStatus(uuid, ShoppingCardStatus.PUBLISHED);
+    }
+
+    public ShoppingCardEntity setStatusToFinished(String uuid) {
+        return this.setStatus(uuid, ShoppingCardStatus.FINISHED);
+    }
+
+    public ShoppingCardEntity setStatus(String uuid, ShoppingCardStatus shoppingCardStatus) {
+            ShoppingCardEntity shoppingCardEntity = shoppingCardRepository.fetch(uuid);
+
+            if (shoppingCardEntity == null)
+                throw new InvalidArgumentException("shoppingCardEntity does not exist.");
+
+            shoppingCardEntity.setStatus(shoppingCardStatus);
+            return shoppingCardRepository.save(shoppingCardEntity);
+        }
 }
