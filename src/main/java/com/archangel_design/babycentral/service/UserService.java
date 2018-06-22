@@ -304,7 +304,7 @@ public class UserService {
         headers.setContentType(MediaType.IMAGE_JPEG);
 
         return new ResponseEntity<byte[]>(user.getAvatar(), headers,
-                HttpStatus.CREATED);
+                HttpStatus.OK);
     }
 
     public UserEntity setUserAvatar(String uuid, MultipartFile file) throws IOException {
@@ -330,7 +330,7 @@ public class UserService {
         headers.setContentType(MediaType.IMAGE_JPEG);
 
         return new ResponseEntity<byte[]>(baby.getAvatar(), headers,
-                HttpStatus.CREATED);
+                HttpStatus.OK);
     }
 
     public BabyEntity setBabyAvatar(String uuid, MultipartFile file) throws IOException {
