@@ -1,6 +1,7 @@
 package com.archangel_design.babycentral.service;
 
 import com.archangel_design.babycentral.entity.*;
+import com.archangel_design.babycentral.enums.ShoppingCardStatus;
 import com.archangel_design.babycentral.exception.InvalidArgumentException;
 import com.archangel_design.babycentral.repository.ShoppingCardRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +23,7 @@ public class ShoppingCardService {
     ShoppingCardRepository shoppingCardRepository;
 
     public ShoppingCardEntity createShoppingCard(
-            @NotNull final String name
+            @NotNull final String name, final String description
     ) {
         UserEntity user = sessionService.getCurrentSession().getUser();
 
@@ -30,7 +31,8 @@ public class ShoppingCardService {
 
         shoppingCardEntity
                 .setName(name)
-                .setUser(user);
+                .setUser(user)
+                .setDescription(description);
 
         return shoppingCardRepository.save(shoppingCardEntity);
     }
@@ -93,5 +95,70 @@ public class ShoppingCardService {
         }
 
         return shoppingCardRepository.save(shoppingCardEntity);
+    }
+
+    public ShoppingCardEntity setStatusToDraft(String uuid) {
+        return this.setStatus(uuid, ShoppingCardStatus.DRAFT);
+    }
+
+    public ShoppingCardEntity setStatusToPublished(String uuid) {
+        return this.setStatus(uuid, ShoppingCardStatus.PUBLISHED);
+    }
+
+    public ShoppingCardEntity setStatusToFinished(String uuid) {
+        return this.setStatus(uuid, ShoppingCardStatus.FINISHED);
+    }
+
+    public ShoppingCardEntity setStatus(String uuid, ShoppingCardStatus shoppingCardStatus) {
+            ShoppingCardEntity shoppingCardEntity = shoppingCardRepository.fetch(uuid);
+
+            if (shoppingCardEntity == null)
+                throw new InvalidArgumentException("shoppingCardEntity does not exist.");
+
+            shoppingCardEntity.setStatus(shoppingCardStatus);
+            return shoppingCardRepository.save(shoppingCardEntity);
+        }
+
+    public void removeShoppingCardEntry(String uuid) {
+        ShoppingCardEntryEntity shoppingCardEntryEntity = shoppingCardRepository.fetchEntry(uuid);
+
+        if (shoppingCardEntryEntity == null)
+            throw new InvalidArgumentException("shoppingCardEntryEntity does not exist.");
+
+        shoppingCardRepository.delete(shoppingCardEntryEntity);
+    }
+
+    public void removeShoppingCard(String uuid) {
+        ShoppingCardEntity shoppingCardEntity = shoppingCardRepository.fetch(uuid);
+
+        if (shoppingCardEntity == null)
+            throw new InvalidArgumentException("shoppingCardEntity does not exist.");
+
+        shoppingCardRepository.delete(shoppingCardEntity);
+    }
+
+    public ShoppingCardEntity updateShoppingCard(String uuid, String name, String description) {
+        ShoppingCardEntity shoppingCardEntity = shoppingCardRepository.fetch(uuid);
+
+        if (shoppingCardEntity == null)
+            throw new InvalidArgumentException("shoppingCardEntity does not exist.");
+
+        shoppingCardEntity
+                .setName(name)
+                .setDescription(description);
+
+        return shoppingCardRepository.save(shoppingCardEntity);
+    }
+
+    public ShoppingCardEntryEntity updateShoppingCardEntry(String uuid, String articleName, Integer quantity) {
+        ShoppingCardEntryEntity shoppingCardEntryEntity = shoppingCardRepository.fetchEntry(uuid);
+
+        if (shoppingCardEntryEntity == null)
+            throw new InvalidArgumentException("shoppingCardEntryEntity does not exist.");
+
+        shoppingCardEntryEntity.setArticleName(articleName);
+        shoppingCardEntryEntity.setQuantity(quantity);
+
+        return shoppingCardRepository.save(shoppingCardEntryEntity);
     }
 }

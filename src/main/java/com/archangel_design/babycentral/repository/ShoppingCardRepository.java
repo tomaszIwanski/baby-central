@@ -26,8 +26,9 @@ public class ShoppingCardRepository extends GenericRepository {
     public List<ShoppingCardEntity> fetchList(UserEntity user) {
         TypedQuery<ShoppingCardEntity> query = em.createQuery(
                 "select s from ShoppingCardEntity s "
+                        + "left join s.assignedUsers a "
                         + "where (s.user.id = :uid and not s.status = 'FINISHED') "
-                        + "or (s.assignedUsers.id = :uuid and s.status = 'PUBLISHED')", ShoppingCardEntity.class
+                        + "or (a.id = :uid and s.status = 'PUBLISHED')", ShoppingCardEntity.class
         );
 
         query.setParameter("uid", user.getId());

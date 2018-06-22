@@ -5,4 +5,5 @@ import lombok.Getter;
 @Getter
 public class CreateShoppingCardRequest {
     private String name;
+    private String description;
 }

@@ -50,7 +50,7 @@ public abstract class GenericRepository {
         return em.merge(scheduleEntryEntity);
     }
 
-    @Transactional
+    @Transactional()
     public BabyEntity save(@NotNull final BabyEntity babyEntity) {
         return em.merge(babyEntity);
     }
@@ -58,5 +58,15 @@ public abstract class GenericRepository {
     @Transactional()
     public Object save(Object object) {
         return em.merge(object);
+    }
+
+    @Transactional()
+    public void delete(ShoppingCardEntryEntity shoppingCardEntryEntity) {
+        em.remove(shoppingCardEntryEntity);
+    }
+
+    @Transactional()
+    public void delete(ShoppingCardEntity shoppingCardEntity) {
+        em.remove(shoppingCardEntity);
     }
 }

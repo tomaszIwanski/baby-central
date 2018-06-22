@@ -24,7 +24,7 @@ public class ShoppingCardController {
             @RequestBody CreateShoppingCardRequest request
     ) {
         return shoppingCardService.createShoppingCard(
-                request.getName()
+                request.getName(), request.getDescription()
         );
     }
 
@@ -65,6 +65,59 @@ public class ShoppingCardController {
             @RequestBody List<String> users
     ) {
         return shoppingCardService.assignShoppingCard(uuid, users);
+    }
+
+    @GetMapping("/set-status-to-draft/{uuid}")
+    public ShoppingCardEntity setStatusToDraft(
+            @PathVariable String uuid
+    ) {
+        return shoppingCardService.setStatusToDraft(uuid);
+    }
+
+    @GetMapping("/set-status-to-published/{uuid}")
+    public ShoppingCardEntity setStatusToPublished(
+            @PathVariable String uuid
+    ) {
+        return shoppingCardService.setStatusToPublished(uuid);
+    }
+
+    @GetMapping("/set-status-to-finished/{uuid}")
+    public ShoppingCardEntity setStatusToFinished(
+            @PathVariable String uuid
+    ) {
+        return shoppingCardService.setStatusToFinished(uuid);
+    }
+
+    @DeleteMapping("/{uuid}")
+    public void removeShoppingCard(
+            @PathVariable String uuid
+    ) {
+        shoppingCardService.removeShoppingCard(uuid);
+    }
+
+    @DeleteMapping("/entry/{uuid}")
+    public void removeShoppingCardEntry(
+            @PathVariable String uuid
+    ) {
+        shoppingCardService.removeShoppingCardEntry(uuid);
+    }
+
+    @PutMapping("/{uuid}")
+    public ShoppingCardEntity updateShoppingCard(
+            @PathVariable("uuid") String uuid,
+            @RequestBody ShoppingCardEntity shoppingCardEntity
+    ) {
+        return shoppingCardService.updateShoppingCard(uuid, shoppingCardEntity.getName(),
+                                                        shoppingCardEntity.getDescription());
+    }
+
+    @PutMapping("/entry/{uuid}")
+    public ShoppingCardEntryEntity updateShoppingCardEntry(
+            @PathVariable("uuid") String uuid,
+            @RequestBody ShoppingCardEntryEntity shoppingCardEntryEntity
+    ) {
+        return shoppingCardService.updateShoppingCardEntry(uuid, shoppingCardEntryEntity.getArticleName(),
+                                                            shoppingCardEntryEntity.getQuantity());
     }
 
 }
