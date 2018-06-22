@@ -4,7 +4,6 @@ import com.archangel_design.babycentral.entity.*;
 import com.archangel_design.babycentral.enums.ShoppingCardStatus;
 import com.archangel_design.babycentral.exception.InvalidArgumentException;
 import com.archangel_design.babycentral.repository.ShoppingCardRepository;
-import com.fasterxml.jackson.databind.util.EnumValues;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
