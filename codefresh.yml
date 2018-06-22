@@ -16,7 +16,7 @@ steps:
   BuildingDockerImage:
     title: Building Docker Image
     type: build
-    image_name: archangeldesign_marketplace/baby-central-app
+    image_name: baby-central-app
     working_directory: ./
     tag: '${{CF_BRANCH_TAG_NORMALIZED}}-latest'
     dockerfile: Dockerfile
