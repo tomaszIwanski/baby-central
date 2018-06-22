@@ -14,4 +14,6 @@ FROM openjdk:8-jre AS target
 
 EXPOSE 9001
 
-CMD ["/usr/bin/java", "-jar", "/app.jar"]
+CMD java -jar /app/app.jar \
+--onesignal-app-id=$OSID \
+--spring.datasource.password=$DB_PASSWORD
