@@ -1,8 +1,7 @@
 {
 	"info": {
+		"_postman_id": "f0a08910-525f-47c5-8575-3c527def2997",
 		"name": "babyscheduler",
-		"_postman_id": "c102b643-9351-2037-c152-3d09b6831962",
-		"description": "",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
@@ -29,8 +28,7 @@
 						"auth",
 						"register"
 					]
-				},
-				"description": ""
+				}
 			},
 			"response": []
 		},
@@ -57,8 +55,7 @@
 						"auth",
 						"login"
 					]
-				},
-				"description": ""
+				}
 			},
 			"response": []
 		},
@@ -72,7 +69,10 @@
 						"value": "Token {{bstoken}}"
 					}
 				],
-				"body": {},
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
 				"url": {
 					"raw": "{{bsurl}}/user/my-account",
 					"host": [
@@ -82,8 +82,7 @@
 						"user",
 						"my-account"
 					]
-				},
-				"description": ""
+				}
 			},
 			"response": []
 		},
@@ -114,8 +113,7 @@
 						"user",
 						"update-location"
 					]
-				},
-				"description": ""
+				}
 			},
 			"response": []
 		},
@@ -146,8 +144,7 @@
 						"user",
 						"update-location"
 					]
-				},
-				"description": ""
+				}
 			},
 			"response": []
 		},
@@ -178,8 +175,7 @@
 						"user",
 						"update-profile"
 					]
-				},
-				"description": ""
+				}
 			},
 			"response": []
 		},
@@ -210,8 +206,7 @@
 						"user",
 						"baby"
 					]
-				},
-				"description": ""
+				}
 			},
 			"response": []
 		},
@@ -242,8 +237,7 @@
 						"schedule",
 						"create-schedule"
 					]
-				},
-				"description": ""
+				}
 			},
 			"response": []
 		},
@@ -257,7 +251,10 @@
 						"value": "Token {{bstoken}}"
 					}
 				],
-				"body": {},
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
 				"url": {
 					"raw": "{{bsurl}}/schedule/list",
 					"host": [
@@ -267,12 +264,11 @@
 						"schedule",
 						"list"
 					]
-				},
-				"description": ""
+				}
 			},
 			"response": [
 				{
-					"id": "2a78690a-0bcc-4f5c-935e-6eb4c7fc883d",
+					"id": "d7a94fe8-d8dc-41a8-b4f2-a5d7fad96c98",
 					"name": "schedule list",
 					"originalRequest": {
 						"method": "GET",
@@ -282,7 +278,10 @@
 								"value": "Token {{bstoken}}"
 							}
 						],
-						"body": {},
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
 						"url": {
 							"raw": "{{bsurl}}/schedule/list",
 							"host": [
@@ -297,7 +296,6 @@
 					"status": "OK",
 					"code": 200,
 					"_postman_previewlanguage": "json",
-					"_postman_previewtype": "text",
 					"header": [
 						{
 							"key": "Cache-Control",
@@ -355,13 +353,12 @@
 						}
 					],
 					"cookie": [],
-					"responseTime": 847,
 					"body": "[{\"id\":27,\"name\":\"Default schedule\",\"uuid\":\"b32f5e28-9e2d-4d1a-ba8b-bd088dbd9b1a\",\"baby\":{\"id\":25,\"uuid\":\"172944bb-864e-4d5e-a7f6-08309caf2eca\",\"name\":\"Archimedes\",\"birthday\":\"2015-08-15T16:30:00.000+0000\",\"gender\":\"MALE\"},\"user\":{\"uuid\":\"54c5f11d-9c7c-4b68-b7b3-7a2e538aac51\",\"email\":\"email@domain.com\",\"registration\":\"2018-05-19T09:20:43.000+0000\",\"lastUsage\":\"2018-05-19T09:20:43.000+0000\",\"babies\":[{\"id\":25,\"uuid\":\"172944bb-864e-4d5e-a7f6-08309caf2eca\",\"name\":\"Archimedes\",\"birthday\":\"2015-08-15T16:30:00.000+0000\",\"gender\":\"MALE\"},{\"id\":26,\"uuid\":\"cdc831c0-e334-47ae-add8-b556389f0fee\",\"name\":\"Srchimedes\",\"birthday\":\"2015-08-15T16:30:00.000+0000\",\"gender\":\"MALE\"}],\"organization\":{\"name\":\"My organization\",\"creationDate\":\"2018-05-21T16:00:52.000+0000\"},\"profile\":{\"lastName\":\"Martinez\",\"countryOfOrigin\":\"Poland\",\"currentCountry\":\"USA\",\"dob\":\"1982-10-07T00:00:00.000+0000\",\"gender\":null,\"interests\":[{\"keyword\":\"Classical\",\"category\":\"MUSIC\"}]}},\"entries\":[]}]"
 				}
 			]
 		},
 		{
-			"name": "create entry",
+			"name": "shedule create entry",
 			"request": {
 				"method": "POST",
 				"header": [
@@ -388,8 +385,7 @@
 						"entry",
 						"42abecba-ba02-4b9b-abf6-8dc40fe3ea57"
 					]
-				},
-				"description": ""
+				}
 			},
 			"response": []
 		},
@@ -403,7 +399,10 @@
 						"value": "Token {{bstoken}}"
 					}
 				],
-				"body": {},
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
 				"url": {
 					"raw": "{{bsurl}}/user/babies",
 					"host": [
@@ -413,8 +412,7 @@
 						"user",
 						"babies"
 					]
-				},
-				"description": ""
+				}
 			},
 			"response": []
 		},
@@ -441,8 +439,399 @@
 						"user",
 						"invite"
 					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "shoppingCard list",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Token {{bstoken}}"
+					}
+				],
+				"body": {},
+				"url": {
+					"raw": "{{bsurl}}/shopping-card/list",
+					"host": [
+						"{{bsurl}}"
+					],
+					"path": [
+						"shopping-card",
+						"list"
+					]
 				},
-				"description": ""
+				"description": "baby shopping card list get"
+			},
+			"response": []
+		},
+		{
+			"name": "create new shoppingCard",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Token {{bstoken}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\": \"name\"\n\t\"description\": \"description\"\n}"
+				},
+				"url": {
+					"raw": "{{bsurl}}/shopping-card/create-shopping-card",
+					"host": [
+						"{{bsurl}}"
+					],
+					"path": [
+						"shopping-card",
+						"create-shopping-card"
+					]
+				},
+				"description": "create-shopping-card"
+			},
+			"response": []
+		},
+		{
+			"name": "create new shoppingCard entry",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Token {{bstoken}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"articleName\": \"dziubdziu\",\n  \"quantity\": 10\n}"
+				},
+				"url": {
+					"raw": "{{bsurl}}/shopping-card/entry/9ddec396-2763-415b-8d33-b2052ecdd3cf",
+					"host": [
+						"{{bsurl}}"
+					],
+					"path": [
+						"shopping-card",
+						"entry",
+						"9ddec396-2763-415b-8d33-b2052ecdd3cf"
+					]
+				},
+				"description": "Adding shopcart entry record"
+			},
+			"response": []
+		},
+		{
+			"name": "shoppingCard assign",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Token {{bstoken}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "[\n\t\"33ee89c1-644c-4d2c-bb66-827d9c43639c\"\n]"
+				},
+				"url": {
+					"raw": "{{bsurl}}/shopping-card/assign/9ddec396-2763-415b-8d33-b2052ecdd3cf",
+					"host": [
+						"{{bsurl}}"
+					],
+					"path": [
+						"shopping-card",
+						"assign",
+						"9ddec396-2763-415b-8d33-b2052ecdd3cf"
+					]
+				},
+				"description": "assign users to shoppingcard"
+			},
+			"response": []
+		},
+		{
+			"name": "toggle shoppingCardEntry isPurchased",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Token {{bstoken}}"
+					}
+				],
+				"body": {},
+				"url": {
+					"raw": "{{bsurl}}/shopping-card/toggle-purchased/bb1f9d86-83bf-4083-8390-cd4434441a9f",
+					"host": [
+						"{{bsurl}}"
+					],
+					"path": [
+						"shopping-card",
+						"toggle-purchased",
+						"bb1f9d86-83bf-4083-8390-cd4434441a9f"
+					]
+				},
+				"description": "toggleIsPurchased"
+			},
+			"response": []
+		},
+		{
+			"name": "user avatar",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Token {{bstoken}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"description": "",
+							"type": "file"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{bsurl}}/user/avatar/fd96da9e-896e-47aa-803e-47799383f15a",
+					"host": [
+						"{{bsurl}}"
+					],
+					"path": [
+						"user",
+						"avatar",
+						"fd96da9e-896e-47aa-803e-47799383f15a"
+					]
+				},
+				"description": "set-avatar"
+			},
+			"response": []
+		},
+		{
+			"name": "user avatar",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Token {{bstoken}}"
+					}
+				],
+				"body": {},
+				"url": {
+					"raw": "{{bsurl}}/user/avatar/0a0f4ecf-2860-46e6-9f42-4da30c0584dd",
+					"host": [
+						"{{bsurl}}"
+					],
+					"path": [
+						"user",
+						"avatar",
+						"0a0f4ecf-2860-46e6-9f42-4da30c0584dd"
+					]
+				},
+				"description": "get avatar"
+			},
+			"response": []
+		},
+		{
+			"name": "baby",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Token {{bstoken}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"birthday\": \"2018-06-21T13:48:36.136Z\",\n  \"gender\": \"MALE\",\n  \"name\": \"Wojtek\"\n}"
+				},
+				"url": {
+					"raw": "{{bsurl}}/user/baby",
+					"host": [
+						"{{bsurl}}"
+					],
+					"path": [
+						"user",
+						"baby"
+					]
+				},
+				"description": "post new baby"
+			},
+			"response": []
+		},
+		{
+			"name": "baby avatar",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Token {{bstoken}}"
+					}
+				],
+				"body": {},
+				"url": {
+					"raw": "{{bsurl}}/user/baby/avatar/31aeb959-273c-4f38-b01e-34f65d9dfaa0",
+					"host": [
+						"{{bsurl}}"
+					],
+					"path": [
+						"user",
+						"baby",
+						"avatar",
+						"31aeb959-273c-4f38-b01e-34f65d9dfaa0"
+					]
+				},
+				"description": "get baby avatar"
+			},
+			"response": []
+		},
+		{
+			"name": "baby avatar",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Token {{bstoken}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"value": "",
+							"description": "",
+							"type": "file"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{bsurl}}/user/baby/avatar/31aeb959-273c-4f38-b01e-34f65d9dfaa0",
+					"host": [
+						"{{bsurl}}"
+					],
+					"path": [
+						"user",
+						"baby",
+						"avatar",
+						"31aeb959-273c-4f38-b01e-34f65d9dfaa0"
+					]
+				},
+				"description": "post baby avatar"
+			},
+			"response": []
+		},
+		{
+			"name": "set-status-to-draft",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Token {{bstoken}}"
+					}
+				],
+				"body": {},
+				"url": {
+					"raw": "{{bsurl}}/shopping-card/set-status-to-draft/9fbe77ec-cf75-410b-904a-a5ce69fac347",
+					"host": [
+						"{{bsurl}}"
+					],
+					"path": [
+						"shopping-card",
+						"set-status-to-draft",
+						"9fbe77ec-cf75-410b-904a-a5ce69fac347"
+					]
+				},
+				"description": "set-status-to-draft"
+			},
+			"response": []
+		},
+		{
+			"name": "set-status-to-published",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Token {{bstoken}}"
+					}
+				],
+				"body": {},
+				"url": {
+					"raw": "{{bsurl}}/shopping-card/set-status-to-published/9fbe77ec-cf75-410b-904a-a5ce69fac347",
+					"host": [
+						"{{bsurl}}"
+					],
+					"path": [
+						"shopping-card",
+						"set-status-to-published",
+						"9fbe77ec-cf75-410b-904a-a5ce69fac347"
+					]
+				},
+				"description": "set-status-to-published"
+			},
+			"response": []
+		},
+		{
+			"name": "set-status-to-finieshed",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Token {{bstoken}}"
+					}
+				],
+				"body": {},
+				"url": {
+					"raw": "{{bsurl}}/shopping-card/set-status-to-finished/9fbe77ec-cf75-410b-904a-a5ce69fac347",
+					"host": [
+						"{{bsurl}}"
+					],
+					"path": [
+						"shopping-card",
+						"set-status-to-finished",
+						"9fbe77ec-cf75-410b-904a-a5ce69fac347"
+					]
+				},
+				"description": "set-status-to-finieshed"
 			},
 			"response": []
 		}
