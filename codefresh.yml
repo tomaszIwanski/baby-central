@@ -18,7 +18,7 @@ steps:
     type: build
     image_name: baby-central-app
     working_directory: ./
-    tag: '${{CF_BRANCH_TAG_NORMALIZED}}-${{CF_SHORT_REVISION}}'
+    tag: '${{CF_BRANCH_TAG_NORMALIZED}}-latest'
     dockerfile: Dockerfile
     metadata:
       set:
