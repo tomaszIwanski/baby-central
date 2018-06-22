@@ -7,7 +7,6 @@
 package com.archangel_design.babycentral.entity;
 
 import com.archangel_design.babycentral.enums.Gender;
-import org.hibernate.annotations.CollectionType;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -30,6 +29,10 @@ public class BabyEntity {
     private Date birthday;
 
     private Gender gender;
+
+    @Lob
+    @Column(columnDefinition = "mediumblob")
+    private byte[] avatar = new byte[0];
 
     public Long getId() {
         return id;
@@ -74,5 +77,13 @@ public class BabyEntity {
     public BabyEntity setUuid(String uuid) {
         this.uuid = uuid;
         return this;
+    }
+
+    public byte[] getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(byte[] avatar) {
+        this.avatar = avatar;
     }
 }
