@@ -23,7 +23,7 @@ public class ShoppingCardService {
     ShoppingCardRepository shoppingCardRepository;
 
     public ShoppingCardEntity createShoppingCard(
-            @NotNull final String name
+            @NotNull final String name, final String description
     ) {
         UserEntity user = sessionService.getCurrentSession().getUser();
 
@@ -31,7 +31,8 @@ public class ShoppingCardService {
 
         shoppingCardEntity
                 .setName(name)
-                .setUser(user);
+                .setUser(user)
+                .setDescription(description);
 
         return shoppingCardRepository.save(shoppingCardEntity);
     }
@@ -134,5 +135,30 @@ public class ShoppingCardService {
             throw new InvalidArgumentException("shoppingCardEntity does not exist.");
 
         shoppingCardRepository.delete(shoppingCardEntity);
+    }
+
+    public ShoppingCardEntity updateShoppingCard(String uuid, String name, String description) {
+        ShoppingCardEntity shoppingCardEntity = shoppingCardRepository.fetch(uuid);
+
+        if (shoppingCardEntity == null)
+            throw new InvalidArgumentException("shoppingCardEntity does not exist.");
+
+        shoppingCardEntity
+                .setName(name)
+                .setDescription(description);
+
+        return shoppingCardRepository.save(shoppingCardEntity);
+    }
+
+    public ShoppingCardEntryEntity updateShoppingCardEntry(String uuid, String articleName, Integer quantity) {
+        ShoppingCardEntryEntity shoppingCardEntryEntity = shoppingCardRepository.fetchEntry(uuid);
+
+        if (shoppingCardEntryEntity == null)
+            throw new InvalidArgumentException("shoppingCardEntryEntity does not exist.");
+
+        shoppingCardEntryEntity.setArticleName(articleName);
+        shoppingCardEntryEntity.setQuantity(quantity);
+
+        return shoppingCardRepository.save(shoppingCardEntryEntity);
     }
 }

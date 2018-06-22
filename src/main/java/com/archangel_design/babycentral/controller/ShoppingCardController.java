@@ -24,7 +24,7 @@ public class ShoppingCardController {
             @RequestBody CreateShoppingCardRequest request
     ) {
         return shoppingCardService.createShoppingCard(
-                request.getName()
+                request.getName(), request.getDescription()
         );
     }
 
@@ -88,18 +88,36 @@ public class ShoppingCardController {
         return shoppingCardService.setStatusToFinished(uuid);
     }
 
-    @DeleteMapping("/remove-shopping-card-entry/{uuid}")
+    @DeleteMapping("/{uuid}")
+    public void removeShoppingCard(
+            @PathVariable String uuid
+    ) {
+        shoppingCardService.removeShoppingCard(uuid);
+    }
+
+    @DeleteMapping("/entry/{uuid}")
     public void removeShoppingCardEntry(
             @PathVariable String uuid
     ) {
         shoppingCardService.removeShoppingCardEntry(uuid);
     }
 
-    @DeleteMapping("/remove-shopping-card/{uuid}")
-    public void removeShoppingCard(
-            @PathVariable String uuid
+    @PutMapping("/{uuid}")
+    public ShoppingCardEntity updateShoppingCard(
+            @PathVariable("uuid") String uuid,
+            @RequestBody ShoppingCardEntity shoppingCardEntity
     ) {
-        shoppingCardService.removeShoppingCard(uuid);
+        return shoppingCardService.updateShoppingCard(uuid, shoppingCardEntity.getName(),
+                                                        shoppingCardEntity.getDescription());
+    }
+
+    @PutMapping("/entry/{uuid}")
+    public ShoppingCardEntryEntity updateShoppingCardEntry(
+            @PathVariable("uuid") String uuid,
+            @RequestBody ShoppingCardEntryEntity shoppingCardEntryEntity
+    ) {
+        return shoppingCardService.updateShoppingCardEntry(uuid, shoppingCardEntryEntity.getArticleName(),
+                                                            shoppingCardEntryEntity.getQuantity());
     }
 
 }
