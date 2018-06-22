@@ -117,4 +117,22 @@ public class ShoppingCardService {
             shoppingCardEntity.setStatus(shoppingCardStatus);
             return shoppingCardRepository.save(shoppingCardEntity);
         }
+
+    public void removeShoppingCardEntry(String uuid) {
+        ShoppingCardEntryEntity shoppingCardEntryEntity = shoppingCardRepository.fetchEntry(uuid);
+
+        if (shoppingCardEntryEntity == null)
+            throw new InvalidArgumentException("shoppingCardEntryEntity does not exist.");
+
+        shoppingCardRepository.delete(shoppingCardEntryEntity);
+    }
+
+    public void removeShoppingCard(String uuid) {
+        ShoppingCardEntity shoppingCardEntity = shoppingCardRepository.fetch(uuid);
+
+        if (shoppingCardEntity == null)
+            throw new InvalidArgumentException("shoppingCardEntity does not exist.");
+
+        shoppingCardRepository.delete(shoppingCardEntity);
+    }
 }

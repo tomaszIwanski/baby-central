@@ -88,4 +88,18 @@ public class ShoppingCardController {
         return shoppingCardService.setStatusToFinished(uuid);
     }
 
+    @DeleteMapping("/remove-shopping-card-entry/{uuid}")
+    public void removeShoppingCardEntry(
+            @PathVariable String uuid
+    ) {
+        shoppingCardService.removeShoppingCardEntry(uuid);
+    }
+
+    @DeleteMapping("/remove-shopping-card/{uuid}")
+    public void removeShoppingCard(
+            @PathVariable String uuid
+    ) {
+        shoppingCardService.removeShoppingCard(uuid);
+    }
+
 }
