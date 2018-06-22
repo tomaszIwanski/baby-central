@@ -268,7 +268,7 @@
 			},
 			"response": [
 				{
-					"id": "d7a94fe8-d8dc-41a8-b4f2-a5d7fad96c98",
+					"id": "9ef93eae-b911-46c8-92a5-1a8f21aa7233",
 					"name": "schedule list",
 					"originalRequest": {
 						"method": "GET",
@@ -516,17 +516,17 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n  \"articleName\": \"dziubdziu\",\n  \"quantity\": 10\n}"
+					"raw": "{\n  \"articleName\": \"fiziumiziu tirarira\",\n  \"quantity\": 101\n}"
 				},
 				"url": {
-					"raw": "{{bsurl}}/shopping-card/entry/9ddec396-2763-415b-8d33-b2052ecdd3cf",
+					"raw": "{{bsurl}}/shopping-card/entry/062d4f43-57d0-4b14-880e-48dd4f36aba7",
 					"host": [
 						"{{bsurl}}"
 					],
 					"path": [
 						"shopping-card",
 						"entry",
-						"9ddec396-2763-415b-8d33-b2052ecdd3cf"
+						"062d4f43-57d0-4b14-880e-48dd4f36aba7"
 					]
 				},
 				"description": "Adding shopcart entry record"
@@ -832,6 +832,122 @@
 					]
 				},
 				"description": "set-status-to-finieshed"
+			},
+			"response": []
+		},
+		{
+			"name": "remove-shopping-card",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Token {{bstoken}}"
+					}
+				],
+				"body": {},
+				"url": {
+					"raw": "{{bsurl}}/shopping-card/a866eb82-397f-43ff-8545-d9fa3443ca88",
+					"host": [
+						"{{bsurl}}"
+					],
+					"path": [
+						"shopping-card",
+						"a866eb82-397f-43ff-8545-d9fa3443ca88"
+					]
+				},
+				"description": "remove-shopping-card"
+			},
+			"response": []
+		},
+		{
+			"name": "remove-shopping-card-entry",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Token {{bstoken}}"
+					}
+				],
+				"body": {},
+				"url": {
+					"raw": "{{bsurl}}/shopping-card/entry/a866eb82-397f-43ff-8545-d9fa3443ca88",
+					"host": [
+						"{{bsurl}}"
+					],
+					"path": [
+						"shopping-card",
+						"entry",
+						"a866eb82-397f-43ff-8545-d9fa3443ca88"
+					]
+				},
+				"description": "remove-shopping-card"
+			},
+			"response": []
+		},
+		{
+			"name": "update-shopping-card",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Token {{bstoken}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "    {\n        \"name\": \"new one\",\n        \"description\": \"was not here but now it is\",\n        \"uuid\": \"a569975c-d18f-4e25-86dd-704d8d13e6aa\",\n        \"creationDate\": \"2018-06-20T13:21:35.000+0000\",\n        \"status\": \"PUBLISHED\",\n        \"entries\": [],\n        \"user\": {\n            \"uuid\": \"33ee89c1-644c-4d2c-bb66-827d9c43639c\",\n            \"email\": \"tomasz.iwanski@toreforge.com\",\n            \"registration\": \"2018-06-20T08:39:09.000+0000\",\n            \"lastUsage\": \"2018-06-20T08:39:09.000+0000\",\n            \"invitationPending\": false,\n            \"babies\": [\n                {\n                    \"id\": 12,\n                    \"uuid\": \"31aeb959-273c-4f38-b01e-34f65d9dfaa0\",\n                    \"name\": \"Wojtek\",\n                    \"birthday\": \"2018-06-21T13:48:36.000+0000\",\n                    \"gender\": \"MALE\",\n                    \"avatar\": null\n                }\n            ],\n            \"organization\": null,\n            \"profile\": null,\n            \"avatar\": null\n        },\n        \"assignedUsers\": []\n    }"
+				},
+				"url": {
+					"raw": "{{bsurl}}/shopping-card/a569975c-d18f-4e25-86dd-704d8d13e6aa",
+					"host": [
+						"{{bsurl}}"
+					],
+					"path": [
+						"shopping-card",
+						"a569975c-d18f-4e25-86dd-704d8d13e6aa"
+					]
+				},
+				"description": "remove-shopping-card"
+			},
+			"response": []
+		},
+		{
+			"name": "update-shopping-card-entry",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Token {{bstoken}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "        {\n            \"uuid\": \"26adec9a-bc2d-480c-a616-6445f6e5cedc\",\n            \"creationDate\": \"2018-06-22T12:44:24.878+0000\",\n            \"articleName\": \"bla bla\",\n            \"quantity\": 102,\n            \"isPurchased\": false\n        }"
+				},
+				"url": {
+					"raw": "{{bsurl}}/shopping-card/entry/26adec9a-bc2d-480c-a616-6445f6e5cedc",
+					"host": [
+						"{{bsurl}}"
+					],
+					"path": [
+						"shopping-card",
+						"entry",
+						"26adec9a-bc2d-480c-a616-6445f6e5cedc"
+					]
+				},
+				"description": "remove-shopping-card"
 			},
 			"response": []
 		}
