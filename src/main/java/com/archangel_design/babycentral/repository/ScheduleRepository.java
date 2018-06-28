@@ -9,12 +9,16 @@ package com.archangel_design.babycentral.repository;
 import com.archangel_design.babycentral.entity.ScheduleEntity;
 import com.archangel_design.babycentral.entity.ScheduleEntryEntity;
 import com.archangel_design.babycentral.entity.UserEntity;
+import com.archangel_design.babycentral.enums.ScheduleEntryRepeatType;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.TemporalType;
 import javax.persistence.TypedQuery;
 import javax.validation.constraints.NotNull;
-import java.util.List;
+import java.time.Duration;
+import java.time.Instant;
+import java.util.*;
 
 @Repository
 public class ScheduleRepository extends GenericRepository {
@@ -50,6 +54,25 @@ public class ScheduleRepository extends GenericRepository {
 
         query.setParameter("uid", user.getId());
         query.setParameter("bid", uuid);
+
+        return query.getResultList();
+    }
+
+    public List<ScheduleEntryEntity> fetchPrefiltredScheduleEntriesToTrigger() {
+        Instant d1 = Instant.now().minus(Duration.ofMinutes(2));
+        Instant d2 = Instant.now().plus(Duration.ofMinutes(2));
+
+        TypedQuery<ScheduleEntryEntity> query = em.createQuery(
+                "select s from ScheduleEntryEntity s " +
+                        "where s.deleted = false " +
+                        "and DATE(SYSDATE()) between DATE(s.startDate) and DATE(s.endDate) " +
+                        "and s.start between :d1 and :d2 " +
+                        "and (s.lastNotificationDate is null or DATE(s.lastNotificationDate) < DATE(SYSDATE()))",
+                ScheduleEntryEntity.class
+        );
+
+        query.setParameter("d1", Date.from(d1), TemporalType.TIME);
+        query.setParameter("d2", Date.from(d2), TemporalType.TIME);
 
         return query.getResultList();
     }

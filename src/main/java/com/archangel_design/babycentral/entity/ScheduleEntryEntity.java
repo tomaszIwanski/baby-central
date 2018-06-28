@@ -12,14 +12,9 @@ import com.archangel_design.babycentral.enums.ScheduleEntryType;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.sql.Time;
+import java.time.LocalDate;
 import java.util.Date;
 
 @Entity
@@ -48,7 +43,15 @@ public class ScheduleEntryEntity {
     @Enumerated(EnumType.STRING)
     private ScheduleEntryRepeatType repeatType;
 
+    @ManyToOne(targetEntity = ScheduleEntity.class, optional = false)
+    @JoinColumn(name = "schedule_id")
+    private ScheduleEntity owner;
+
     private Date startDate;
 
     private Date endDate;
+
+    private Date lastNotificationDate;
+
+    private boolean deleted = false;
 }
