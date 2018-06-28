@@ -8,9 +8,6 @@ import org.springframework.context.annotation.Configuration;
 @Getter
 public class OneSignalConfiguration {
 
-    private final String appId;
-
-    public OneSignalConfiguration(@Value("${onesignal-app-id}") final String appId) {
-        this.appId = appId;
-    }
+    private final String appId = "tmp";
+    private final String authorizationId = "tmp";
 }
