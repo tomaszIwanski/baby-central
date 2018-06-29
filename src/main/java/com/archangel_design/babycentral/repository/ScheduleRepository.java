@@ -34,6 +34,17 @@ public class ScheduleRepository extends GenericRepository {
         return query.getResultList().stream().findFirst().orElse(null);
     }
 
+    public ScheduleEntryEntity fetchEntry(@NotNull final String entryUuid) {
+        TypedQuery<ScheduleEntryEntity> query = em.createQuery(
+                "select s from ScheduleEntryEntity s "
+                        + "where s.uuid = :id", ScheduleEntryEntity.class
+        );
+
+        query.setParameter("id", entryUuid);
+
+        return query.getResultList().stream().findFirst().orElse(null);
+    }
+
     public List<ScheduleEntity> fetchList(UserEntity user) {
         TypedQuery<ScheduleEntity> query = em.createQuery(
                 "select s from ScheduleEntity s "

@@ -6,10 +6,7 @@
 
 package com.archangel_design.babycentral.service;
 
-import com.archangel_design.babycentral.entity.BabyEntity;
-import com.archangel_design.babycentral.entity.ScheduleEntity;
-import com.archangel_design.babycentral.entity.ScheduleEntryEntity;
-import com.archangel_design.babycentral.entity.UserEntity;
+import com.archangel_design.babycentral.entity.*;
 import com.archangel_design.babycentral.enums.ScheduleEntryPriority;
 import com.archangel_design.babycentral.enums.ScheduleEntryRepeatType;
 import com.archangel_design.babycentral.enums.ScheduleEntryType;
@@ -140,5 +137,23 @@ public class ScheduleService {
     // TODO tutaj?
     private boolean isWorkDay(DayOfWeek dayOfWeek) {
         return dayOfWeek != DayOfWeek.SATURDAY && dayOfWeek != DayOfWeek.SUNDAY;
+    }
+
+    public void removeScheduleEntryEntity(String uuid) {
+        ScheduleEntryEntity scheduleEntryEntity = scheduleRepository.fetchEntry(uuid);
+
+        if (scheduleEntryEntity == null)
+            throw new InvalidArgumentException("scheduleEntryEntity does not exist.");
+
+        scheduleRepository.delete(scheduleEntryEntity);
+    }
+
+    public void removeScheduleEntity(String uuid) {
+        ScheduleEntity scheduleEntity = scheduleRepository.fetch(uuid);
+
+        if (scheduleEntity == null)
+            throw new InvalidArgumentException("scheduleEntity does not exist.");
+
+        scheduleRepository.delete(scheduleEntity);
     }
 }

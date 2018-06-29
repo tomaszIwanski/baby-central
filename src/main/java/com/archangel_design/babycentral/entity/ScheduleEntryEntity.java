@@ -16,6 +16,7 @@ import javax.persistence.*;
 import java.sql.Time;
 import java.time.LocalDate;
 import java.util.Date;
+import java.util.UUID;
 
 @Entity
 @Table(name = "schedule_entries")
@@ -26,6 +27,9 @@ public class ScheduleEntryEntity {
     @Id
     @GeneratedValue
     private Long id;
+
+    @Column(length = 36)
+    private String uuid = UUID.randomUUID().toString();
 
     @Column(length = 120)
     private String title;

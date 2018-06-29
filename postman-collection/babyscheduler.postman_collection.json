@@ -226,7 +226,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"name\": \"Default schedule\",\n\t\"babyId\": \"172944bb-864e-4d5e-a7f6-08309caf2eca\"\n}"
+					"raw": "{\n\t\"name\": \"Default schedule\",\n\t\"babyUuid\": \"172944bb-864e-4d5e-a7f6-08309caf2eca\"\n}"
 				},
 				"url": {
 					"raw": "{{bsurl}}/schedule/create-schedule",

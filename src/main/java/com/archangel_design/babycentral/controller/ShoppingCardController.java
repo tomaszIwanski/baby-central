@@ -4,6 +4,7 @@ import com.archangel_design.babycentral.entity.ShoppingCardEntity;
 import com.archangel_design.babycentral.entity.ShoppingCardEntryEntity;
 import com.archangel_design.babycentral.request.CreateShoppingCardEntryRequest;
 import com.archangel_design.babycentral.request.CreateShoppingCardRequest;
+import com.archangel_design.babycentral.request.SetPurchasedRequest;
 import com.archangel_design.babycentral.service.ShoppingCardService;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,11 +53,12 @@ public class ShoppingCardController {
         return shoppingCardService.fetch(uuid);
     }
 
-    @GetMapping("/toggle-purchased/{uuid}")
-    public ShoppingCardEntryEntity toggleIsPurchased(
-            @PathVariable String uuid
+    @PutMapping("/set-purchased/{uuid}")
+    public ShoppingCardEntryEntity setPurchased(
+            @PathVariable String uuid,
+            @RequestBody SetPurchasedRequest setPurchasedRequest
     ) {
-        return shoppingCardService.toggleIsPurchased(uuid);
+        return shoppingCardService.setPurchased(uuid, setPurchasedRequest.getPurchased());
     }
 
     @PostMapping("/assign/{uuid}")
@@ -67,21 +69,21 @@ public class ShoppingCardController {
         return shoppingCardService.assignShoppingCard(uuid, users);
     }
 
-    @GetMapping("/set-status-to-draft/{uuid}")
+    @PutMapping("/set-status-to-draft/{uuid}")
     public ShoppingCardEntity setStatusToDraft(
             @PathVariable String uuid
     ) {
         return shoppingCardService.setStatusToDraft(uuid);
     }
 
-    @GetMapping("/set-status-to-published/{uuid}")
+    @PutMapping("/set-status-to-published/{uuid}")
     public ShoppingCardEntity setStatusToPublished(
             @PathVariable String uuid
     ) {
         return shoppingCardService.setStatusToPublished(uuid);
     }
 
-    @GetMapping("/set-status-to-finished/{uuid}")
+    @PutMapping("/set-status-to-finished/{uuid}")
     public ShoppingCardEntity setStatusToFinished(
             @PathVariable String uuid
     ) {
