@@ -58,7 +58,7 @@ public class ShoppingCardController {
             @PathVariable String uuid,
             @RequestBody SetPurchasedRequest setPurchasedRequest
     ) {
-        return shoppingCardService.setPurchased(uuid, setPurchasedRequest.getPurchased());
+        return shoppingCardService.setPurchased(uuid, setPurchasedRequest.getIsPurchased());
     }
 
     @PostMapping("/assign/{uuid}")
@@ -69,21 +69,21 @@ public class ShoppingCardController {
         return shoppingCardService.assignShoppingCard(uuid, users);
     }
 
-    @PutMapping("/set-status-to-draft/{uuid}")
+    @GetMapping("/set-status-to-draft/{uuid}")
     public ShoppingCardEntity setStatusToDraft(
             @PathVariable String uuid
     ) {
         return shoppingCardService.setStatusToDraft(uuid);
     }
 
-    @PutMapping("/set-status-to-published/{uuid}")
+    @GetMapping("/set-status-to-published/{uuid}")
     public ShoppingCardEntity setStatusToPublished(
             @PathVariable String uuid
     ) {
         return shoppingCardService.setStatusToPublished(uuid);
     }
 
-    @PutMapping("/set-status-to-finished/{uuid}")
+    @GetMapping("/set-status-to-finished/{uuid}")
     public ShoppingCardEntity setStatusToFinished(
             @PathVariable String uuid
     ) {

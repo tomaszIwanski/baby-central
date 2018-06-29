@@ -2,13 +2,13 @@ package com.archangel_design.babycentral.request;
 
 public class SetPurchasedRequest {
 
-    Boolean purchased;
+    boolean isPurchased;
 
-    public Boolean getPurchased() {
-        return purchased;
+    public Boolean getIsPurchased() {
+        return isPurchased;
     }
 
-    public void setPurchased(Boolean purchased) {
-        this.purchased = purchased;
+    public void setIsPurchased(Boolean purchased) {
+        isPurchased = purchased;
     }
 }
