@@ -2,6 +2,7 @@ package com.archangel_design.babycentral.processor;
 
 import com.archangel_design.babycentral.configuration.OneSignalConfiguration;
 import com.archangel_design.babycentral.entity.ScheduleEntryEntity;
+import com.archangel_design.babycentral.enums.ScheduleEntryPriority;
 import com.archangel_design.babycentral.service.onesignal.OneSignalNotificationFactory;
 import com.archangel_design.babycentral.service.onesignal.OneSignalPushNotification;
 import com.archangel_design.babycentral.service.onesignal.OneSignalService;
@@ -31,11 +32,35 @@ public class ScheduleEntryProcessor {
                 new OneSignalNotificationFactory(oneSignalConfiguration);
     }
 
-    public void sendPushNotificationsForScheduleEntries() {
+    public void sendNotificationsForScheduleEntries() {
         List<ScheduleEntryEntity> scheduleEntries =
                 scheduleService.getEventsForNotificationSending();
 
-        scheduleEntries.forEach(this::sendPushNotificationForScheduleEntry);
+        scheduleEntries.forEach(this::sendNotificationForScheduleEntry);
+    }
+
+    public void sendNotificationForScheduleEntry(
+            final ScheduleEntryEntity scheduleEntry
+    ) {
+        switch (scheduleEntry.getPriority()) {
+            case HIGH:
+                sendSilentPushNotificationForScheduleEntry(scheduleEntry);
+                return;
+            case MEDIUM:
+                sendPushNotificationForScheduleEntry(scheduleEntry);
+                return;
+            case LOW:
+                sendPushNotificationForScheduleEntry(scheduleEntry);
+                return;
+        }
+    }
+
+    private void sendSilentPushNotificationForScheduleEntry(
+            ScheduleEntryEntity scheduleEntry
+    ) {
+
+
+
     }
 
     private void sendPushNotificationForScheduleEntry(

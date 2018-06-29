@@ -15,7 +15,7 @@ public class ScheduleEntryTasks {
 
     @Scheduled(fixedDelayString = "PT5S")
     public void reportCurrentTime() {
-        processor.sendPushNotificationsForScheduleEntries();
+        processor.sendNotificationsForScheduleEntries();
         processor.processExpiredScheduleEntries();
     }
 }
