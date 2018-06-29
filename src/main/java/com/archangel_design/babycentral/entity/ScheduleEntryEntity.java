@@ -9,6 +9,7 @@ package com.archangel_design.babycentral.entity;
 import com.archangel_design.babycentral.enums.ScheduleEntryPriority;
 import com.archangel_design.babycentral.enums.ScheduleEntryRepeatType;
 import com.archangel_design.babycentral.enums.ScheduleEntryType;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -46,6 +47,7 @@ public class ScheduleEntryEntity {
     @Enumerated(EnumType.STRING)
     private ScheduleEntryRepeatType repeatType;
 
+    @JsonIgnore
     @ManyToOne(targetEntity = ScheduleEntity.class, optional = false)
     @JoinColumn(name = "schedule_id")
     private ScheduleEntity owner;

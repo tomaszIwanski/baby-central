@@ -1,7 +1,7 @@
 package com.archangel_design.babycentral.enums;
 
 public enum Language {
-    ENGLISH("en");
+    en("en");
 
     Language(final String shortcut) {
         this.shortcut = shortcut;

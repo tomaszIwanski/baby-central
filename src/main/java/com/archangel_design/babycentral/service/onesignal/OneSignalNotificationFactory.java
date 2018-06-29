@@ -17,14 +17,28 @@ public class OneSignalNotificationFactory {
         this.oneSignalConfiguration = oneSignalConfiguration;
     }
 
-    public OneSignalPushNotification createPushNotification(final ScheduleEntryEntity scheduleEntry) {
-        OneSignalPushNotification notification = new OneSignalPushNotification(
-                oneSignalConfiguration.getAppId(),
-                scheduleEntry.getOwner().getUser().getOrganization().getUuid()
-        );
+    public OneSignalPushNotification createPushNotificationForOrganization(final ScheduleEntryEntity scheduleEntry) {
+        OneSignalPushNotification notification =
+                OneSignalPushNotification.createNotificationForOrganization(
+                        oneSignalConfiguration.getAppId(),
+                        scheduleEntry.getOwner().getUser().getOrganization().getUuid()
+                );
 
         // TODO logika treści wiadomości
-        notification.addMessage(Language.ENGLISH, "tmp");
+        notification.addMessage(Language.en, "tmp");
+
+        return notification;
+    }
+
+    public OneSignalPushNotification createPushNotificationForUser(final ScheduleEntryEntity scheduleEntry) {
+        OneSignalPushNotification notification =
+                OneSignalPushNotification.createNotificationForUser(
+                        oneSignalConfiguration.getAppId(),
+                        scheduleEntry.getOwner().getUser().getUuid()
+                );
+
+        // TODO logika treści wiadomości
+        notification.addMessage(Language.en, "tmp");
 
         return notification;
     }
