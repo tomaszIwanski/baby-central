@@ -9,9 +9,7 @@ package com.archangel_design.babycentral.repository;
 import com.archangel_design.babycentral.entity.ScheduleEntity;
 import com.archangel_design.babycentral.entity.ScheduleEntryEntity;
 import com.archangel_design.babycentral.entity.UserEntity;
-import com.archangel_design.babycentral.enums.ScheduleEntryRepeatType;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.TemporalType;
 import javax.persistence.TypedQuery;
