@@ -83,6 +83,7 @@ public class ScheduleService {
                 entry.setEndDate(dateStop);
                 entry.setTitle(title);
         scheduleEntity.getEntries().add(entry);
+        entry.setOwner(scheduleEntity);
 
         return scheduleRepository.save(scheduleEntity);
     }
