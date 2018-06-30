@@ -58,7 +58,7 @@ public class ShoppingCardController {
             @PathVariable String uuid,
             @RequestBody SetPurchasedRequest setPurchasedRequest
     ) {
-        return shoppingCardService.setPurchased(uuid, setPurchasedRequest.getIsPurchased());
+        return shoppingCardService.setPurchased(uuid, setPurchasedRequest.isPurchased());
     }
 
     @PostMapping("/assign/{uuid}")
