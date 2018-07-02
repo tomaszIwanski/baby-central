@@ -58,6 +58,7 @@ public class ShoppingCardController {
             @PathVariable String uuid,
             @RequestBody SetPurchasedRequest setPurchasedRequest
     ) {
+        System.out.println(setPurchasedRequest.isPurchased());
         return shoppingCardService.setPurchased(uuid, setPurchasedRequest.isPurchased());
     }
 
