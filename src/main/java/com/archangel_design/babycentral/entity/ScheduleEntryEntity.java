@@ -9,14 +9,17 @@ package com.archangel_design.babycentral.entity;
 import com.archangel_design.babycentral.enums.ScheduleEntryPriority;
 import com.archangel_design.babycentral.enums.ScheduleEntryRepeatType;
 import com.archangel_design.babycentral.enums.ScheduleEntryType;
+import com.archangel_design.babycentral.repository.GenericRepository;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
 import java.sql.Time;
+import java.time.Instant;
 import java.util.Date;
 import java.util.UUID;
+import java.util.function.Function;
 
 @Entity
 @Table(name = "schedule_entries")
@@ -56,7 +59,13 @@ public class ScheduleEntryEntity {
 
     private Date endDate;
 
-    private Date lastNotificationDate;
+    private Instant lastNotificationDate;
+
+    public Function<GenericRepository, ScheduleEntryEntity> recordNotificationSend() {
+        this.lastNotificationDate = Instant.now();
+
+        return genericRepository -> genericRepository.save(this);
+    }
 
     // LOGIKA HIGH PRIOTITY ALERTÓW
     private boolean isHighPriorityAlertActive = false;

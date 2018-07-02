@@ -41,6 +41,17 @@ public class ScheduleEntryProcessor {
                 new OneSignalNotificationFactory(oneSignalConfiguration);
     }
 
+    public void resendAlertsForHighPriorityScheduleEntries() {
+        List<ScheduleEntryEntity> scheduleEntries =
+                scheduleService.getHighPriorityEventsForAlertsResending();
+
+        scheduleEntries.forEach(this::resendAlertForScheduleEntry);
+    }
+
+    public void resendAlertForScheduleEntry(final ScheduleEntryEntity scheduleEntry) {
+        sendPushNotificationForScheduleEntry(scheduleEntry);
+    }
+
     public void sendNotificationsForScheduleEntries() {
         List<ScheduleEntryEntity> scheduleEntries =
                 scheduleService.getEventsForNotificationSending();
@@ -64,8 +75,7 @@ public class ScheduleEntryProcessor {
                 break;
         }
 
-        scheduleEntry.setLastNotificationDate(new Date());
-        scheduleRepository.save(scheduleEntry);
+        scheduleEntry.recordNotificationSend().apply(scheduleRepository);
     }
 
     private void sendPushNotificationForScheduleEntry(

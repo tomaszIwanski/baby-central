@@ -56,6 +56,13 @@ public abstract class GenericRepository {
     }
 
     @Transactional()
+    public HighPriorityAlertResponseEntity save(
+            @NotNull final HighPriorityAlertResponseEntity highPriorityAlertResponseEntity
+    ) {
+        return em.merge(highPriorityAlertResponseEntity);
+    }
+
+    @Transactional()
     public Object save(Object object) {
         return em.merge(object);
     }

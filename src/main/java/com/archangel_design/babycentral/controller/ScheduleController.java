@@ -9,6 +9,7 @@ package com.archangel_design.babycentral.controller;
 import com.archangel_design.babycentral.entity.ScheduleEntity;
 import com.archangel_design.babycentral.request.CreateScheduleEntryRequest;
 import com.archangel_design.babycentral.request.CreateScheduleRequest;
+import com.archangel_design.babycentral.request.ScheduleEntryAlertAnswerRequest;
 import com.archangel_design.babycentral.service.ScheduleService;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -82,5 +83,13 @@ public class ScheduleController {
             @PathVariable String uuid
     ) {
         scheduleService.removeScheduleEntryEntity(uuid);
+    }
+
+    @PostMapping("/entry/{uuid}/alert-answer")
+    public void recordAnswerForScheduleEntryAlert(
+            @PathVariable final String uuid,
+            @RequestBody final ScheduleEntryAlertAnswerRequest request
+    ) {
+        scheduleService.recordAnswerForScheduleEntryAlert(uuid, request.getUserUuid());
     }
 }

@@ -21,6 +21,8 @@ import java.sql.Time;
 import java.time.DayOfWeek;
 import java.time.Instant;
 import static java.time.temporal.ChronoField.*;
+
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
@@ -103,6 +105,10 @@ public class ScheduleService {
         return scheduleRepository.fetchList(user, uuid);
     }
 
+    // TODO NAZWA
+    public List<ScheduleEntryEntity> getHighPriorityEventsForAlertsResending() {
+        return scheduleRepository.fetchScheduleEntriesForAlertResending();
+    }
 
     // TODO NAZWA
     public List<ScheduleEntryEntity> getEventsForNotificationSending() {
@@ -114,21 +120,38 @@ public class ScheduleService {
 
     // TODO split to methods? NAZWA METODY
     private boolean isValidForSend(ScheduleEntryEntity prefiltredScheduleEntry) {
-        Instant scheduleEntryStartDate = prefiltredScheduleEntry.getStartDate().toInstant();
+        Instant startDateAsInstant = prefiltredScheduleEntry.getStartDate().toInstant();
+        // TODO /60/60/24? :O
+        LocalDate scheduleEntryStartDate = LocalDate.ofEpochDay(
+                startDateAsInstant.getEpochSecond()/60/60/24
+        );
 
         switch(prefiltredScheduleEntry.getRepeatType()) {
             case SINGLE:
-                return Objects.isNull(prefiltredScheduleEntry.getLastNotificationDate());
+                return Objects.isNull(
+                        prefiltredScheduleEntry.getLastNotificationDate()
+                );
             case DAILY:
                 return true;
             case WEEKLY:
-                return Objects.equals(scheduleEntryStartDate.get(DAY_OF_WEEK), Instant.now().get(DAY_OF_WEEK));
+                return Objects.equals(
+                        scheduleEntryStartDate.get(DAY_OF_WEEK),
+                        LocalDate.now().get(DAY_OF_WEEK)
+                );
             case MONTHLY:
-                return Objects.equals(scheduleEntryStartDate.get(DAY_OF_MONTH), Instant.now().get(DAY_OF_MONTH));
+                return Objects.equals(
+                        scheduleEntryStartDate.get(DAY_OF_MONTH),
+                        LocalDate.now().get(DAY_OF_MONTH)
+                );
             case YEARLY:
-                return Objects.equals(scheduleEntryStartDate.get(DAY_OF_YEAR), Instant.now().get(DAY_OF_YEAR));
+                return Objects.equals(
+                        scheduleEntryStartDate.get(DAY_OF_YEAR),
+                        LocalDate.now().get(DAY_OF_YEAR)
+                );
             case WORKDAYS:
-                return isWorkDay(DayOfWeek.of(scheduleEntryStartDate.get(DAY_OF_WEEK)));
+                return isWorkDay(
+                        DayOfWeek.of(scheduleEntryStartDate.get(DAY_OF_WEEK))
+                );
         }
 
         // LOGGER nieobsługiwany event
@@ -138,6 +161,23 @@ public class ScheduleService {
     // TODO tutaj?
     private boolean isWorkDay(DayOfWeek dayOfWeek) {
         return dayOfWeek != DayOfWeek.SATURDAY && dayOfWeek != DayOfWeek.SUNDAY;
+    }
+
+    public void recordAnswerForScheduleEntryAlert(
+            final String scheduleEntryUuid,
+            final String userUuid
+    ) {
+        ScheduleEntryEntity scheduleEntry = scheduleRepository.fetchEntry(scheduleEntryUuid);
+        if (Objects.isNull(scheduleEntry)) {
+            // TODO Exception
+        }
+
+        UserEntity user = userRepository.fetchByUuid(userUuid);
+        if (Objects.isNull(user)) {
+            // TODO Exception
+        }
+
+        scheduleRepository.save(new HighPriorityAlertResponseEntity(scheduleEntry, user));
     }
 
     public void removeScheduleEntryEntity(String uuid) {

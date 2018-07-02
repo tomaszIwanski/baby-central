@@ -9,6 +9,7 @@ package com.archangel_design.babycentral.repository;
 import com.archangel_design.babycentral.entity.ScheduleEntity;
 import com.archangel_design.babycentral.entity.ScheduleEntryEntity;
 import com.archangel_design.babycentral.entity.UserEntity;
+import com.archangel_design.babycentral.enums.ScheduleEntryPriority;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.TemporalType;
@@ -69,8 +70,8 @@ public class ScheduleRepository extends GenericRepository {
 
     // TODO NAZWA
     public List<ScheduleEntryEntity> fetchPrefiltredScheduleEntriesForNotificationSending() {
-        Instant d1 = Instant.now().minus(Duration.ofMinutes(2));
-        Instant d2 = Instant.now().plus(Duration.ofMinutes(2));
+        Instant d1 = Instant.now().minus(Duration.ofMinutes(20));
+        Instant d2 = Instant.now().plus(Duration.ofMinutes(20));
 
         TypedQuery<ScheduleEntryEntity> query = em.createQuery(
                 "select s from ScheduleEntryEntity s " +
@@ -89,6 +90,20 @@ public class ScheduleRepository extends GenericRepository {
 
     // TODO NAZWA
     public List<ScheduleEntryEntity> fetchScheduleEntriesForAlertResending() {
-        return null;
+        TypedQuery<ScheduleEntryEntity> query = em.createQuery(
+                "select s from ScheduleEntryEntity s " +
+                        "where s.isHighPriorityAlertActive = true " +
+                        "and s.priority = :priority " +
+                        "and (" +
+                            "select count(a.id) from HighPriorityAlertResponseEntity a " +
+                            "where a.scheduleEntry.uuid = s.uuid " +
+                            "and s.lastNotificationDate < a.responseDate " +
+                        ") = 0",
+                ScheduleEntryEntity.class
+        );
+
+        query.setParameter("priority", ScheduleEntryPriority.HIGH);
+
+        return query.getResultList();
     }
 }
