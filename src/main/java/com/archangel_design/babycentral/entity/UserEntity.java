@@ -1,5 +1,6 @@
 package com.archangel_design.babycentral.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
@@ -52,6 +53,7 @@ public class UserEntity {
 
     @Lob
     @Column(columnDefinition = "mediumblob")
+    @JsonIgnore
     private byte[] avatar = new byte[0];
 
     public Long getId() {

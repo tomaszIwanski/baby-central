@@ -50,14 +50,14 @@ public class ScheduleEntryEntity {
     @Enumerated(EnumType.STRING)
     private ScheduleEntryRepeatType repeatType;
 
+    private Date startDate;
+
+    private Date endDate;
+
     @JsonIgnore
     @ManyToOne(targetEntity = ScheduleEntity.class, optional = false)
     @JoinColumn(name = "schedule_id")
     private ScheduleEntity owner;
-
-    private Date startDate;
-
-    private Date endDate;
 
     private Instant lastNotificationDate;
 

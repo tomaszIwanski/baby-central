@@ -7,6 +7,7 @@
 package com.archangel_design.babycentral.controller;
 
 import com.archangel_design.babycentral.entity.ScheduleEntity;
+import com.archangel_design.babycentral.entity.ScheduleEntryEntity;
 import com.archangel_design.babycentral.request.ScheduleEntryRequest;
 import com.archangel_design.babycentral.request.CreateScheduleRequest;
 import com.archangel_design.babycentral.request.ScheduleEntryAlertAnswerRequest;
@@ -90,6 +91,20 @@ public class ScheduleController {
             @PathVariable final String uuid,
             @RequestBody final ScheduleEntryAlertAnswerRequest request
     ) {
-        scheduleService.recordAnswerForScheduleEntryAlert(uuid, request.getUserUuid());
+        scheduleService.recordAnswerForScheduleEntryAlert(
+                uuid,
+                request.getUserUuid()
+        );
+    }
+
+    @PutMapping("/entry/{uuid}")
+    public ScheduleEntryEntity updateScheduleEntryEntity(
+            @PathVariable final String uuid,
+            @RequestBody final ScheduleEntryRequest scheduleEntryRequest
+    ) {
+        return scheduleService.updateScheduleEntryEntity(
+                uuid,
+                scheduleEntryRequest
+        );
     }
 }

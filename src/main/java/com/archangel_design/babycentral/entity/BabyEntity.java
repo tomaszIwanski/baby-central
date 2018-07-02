@@ -7,6 +7,7 @@
 package com.archangel_design.babycentral.entity;
 
 import com.archangel_design.babycentral.enums.Gender;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -32,6 +33,7 @@ public class BabyEntity {
 
     @Lob
     @Column(columnDefinition = "mediumblob")
+    @JsonIgnore
     private byte[] avatar = new byte[0];
 
     public Long getId() {

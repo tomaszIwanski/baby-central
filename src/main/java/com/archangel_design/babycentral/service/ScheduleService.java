@@ -13,6 +13,7 @@ import com.archangel_design.babycentral.enums.ScheduleEntryType;
 import com.archangel_design.babycentral.exception.InvalidArgumentException;
 import com.archangel_design.babycentral.repository.ScheduleRepository;
 import com.archangel_design.babycentral.repository.UserRepository;
+import com.archangel_design.babycentral.request.ScheduleEntryRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -71,21 +72,23 @@ public class ScheduleService {
             final Date dateStart,
             final Date dateStop,
             final String title
-            ) {
+    ) {
         ScheduleEntity scheduleEntity = scheduleRepository.fetch(scheduleId);
         if (scheduleEntity == null)
             throw new InvalidArgumentException("Schedule does not exist. " + scheduleId);
+
         ScheduleEntryEntity entry = new ScheduleEntryEntity();
         entry.setPriority(priority);
-                entry.setStart(start);
-                entry.setType(entryType);
-                entry.setStop(stop);
-                entry.setRepeatType(repeatType);
-                entry.setStartDate(dateStart);
-                entry.setEndDate(dateStop);
-                entry.setTitle(title);
-        scheduleEntity.getEntries().add(entry);
+        entry.setStart(start);
+        entry.setType(entryType);
+        entry.setStop(stop);
+        entry.setRepeatType(repeatType);
+        entry.setStartDate(dateStart);
+        entry.setEndDate(dateStop);
+        entry.setTitle(title);
         entry.setOwner(scheduleEntity);
+
+        scheduleEntity.getEntries().add(entry);
 
         return scheduleRepository.save(scheduleEntity);
     }
@@ -196,5 +199,39 @@ public class ScheduleService {
             throw new InvalidArgumentException("scheduleEntity does not exist.");
 
         scheduleRepository.delete(scheduleEntity);
+    }
+
+    public ScheduleEntryEntity updateScheduleEntryEntity(
+            final String uuid,
+            final ScheduleEntryRequest updateRequest
+    ) {
+        ScheduleEntryEntity scheduleEntry = scheduleRepository.fetchEntry(uuid);
+
+        if (Objects.isNull(scheduleEntry)) {
+            // TODO Exception
+        }
+
+        if (Objects.nonNull(scheduleEntry.getLastNotificationDate())) {
+            // TODO Exception
+        }
+
+        if (Objects.nonNull(updateRequest.getTitle()))
+            scheduleEntry.setTitle(updateRequest.getTitle());
+        if (Objects.nonNull(updateRequest.getType()))
+            scheduleEntry.setType(updateRequest.getType());
+        if (Objects.nonNull(updateRequest.getStart()))
+            scheduleEntry.setStart(updateRequest.getStart());
+        if (Objects.nonNull(updateRequest.getStop()))
+            scheduleEntry.setStop(updateRequest.getStop());
+        if (Objects.nonNull(updateRequest.getPriority()))
+            scheduleEntry.setPriority(updateRequest.getPriority());
+        if (Objects.nonNull(updateRequest.getRepeatType()))
+            scheduleEntry.setRepeatType(updateRequest.getRepeatType());
+        if (Objects.nonNull(updateRequest.getStartDate()))
+            scheduleEntry.setStartDate(updateRequest.getStartDate());
+        if (Objects.nonNull(updateRequest.getEndDate()))
+            scheduleEntry.setEndDate(updateRequest.getEndDate());
+
+        return scheduleRepository.save(scheduleEntry);
     }
 }
