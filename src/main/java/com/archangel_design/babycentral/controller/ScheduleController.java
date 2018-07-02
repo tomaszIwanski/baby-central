@@ -7,7 +7,7 @@
 package com.archangel_design.babycentral.controller;
 
 import com.archangel_design.babycentral.entity.ScheduleEntity;
-import com.archangel_design.babycentral.request.CreateScheduleEntryRequest;
+import com.archangel_design.babycentral.request.ScheduleEntryRequest;
 import com.archangel_design.babycentral.request.CreateScheduleRequest;
 import com.archangel_design.babycentral.request.ScheduleEntryAlertAnswerRequest;
 import com.archangel_design.babycentral.service.ScheduleService;
@@ -49,7 +49,7 @@ public class ScheduleController {
     @PostMapping("/entry/{scheduleId}")
     public ScheduleEntity createEntry(
             @PathVariable String scheduleId,
-            @RequestBody CreateScheduleEntryRequest request
+            @RequestBody ScheduleEntryRequest request
     ) {
         return scheduleService.createEntry(
                 scheduleId,
