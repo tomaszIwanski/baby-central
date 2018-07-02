@@ -58,5 +58,6 @@ public class ScheduleEntryEntity {
 
     private Date lastNotificationDate;
 
-    private boolean deleted = false;
+    // LOGIKA HIGH PRIOTITY ALERTÓW
+    private boolean isHighPriorityAlertActive = false;
 }

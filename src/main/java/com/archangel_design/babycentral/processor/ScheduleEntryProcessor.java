@@ -2,7 +2,6 @@ package com.archangel_design.babycentral.processor;
 
 import com.archangel_design.babycentral.configuration.OneSignalConfiguration;
 import com.archangel_design.babycentral.entity.ScheduleEntryEntity;
-import com.archangel_design.babycentral.enums.ScheduleEntryPriority;
 import com.archangel_design.babycentral.repository.ScheduleRepository;
 import com.archangel_design.babycentral.service.onesignal.OneSignalNotificationFactory;
 import com.archangel_design.babycentral.service.onesignal.OneSignalPushNotification;
@@ -51,6 +50,7 @@ public class ScheduleEntryProcessor {
         switch (scheduleEntry.getPriority()) {
             case HIGH:
                 sendPushNotificationForScheduleEntry(scheduleEntry);
+                scheduleEntry.setHighPriorityAlertActive(true);
                 break;
             case MEDIUM:
                 sendPushNotificationForScheduleEntry(scheduleEntry);
@@ -79,7 +79,6 @@ public class ScheduleEntryProcessor {
         try {
             oneSignalService.sendPushNotification(notification);
         } catch (Exception exception) {
-            System.out.println("#################");
             exception.printStackTrace();
         }
     }

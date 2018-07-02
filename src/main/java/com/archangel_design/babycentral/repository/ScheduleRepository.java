@@ -67,13 +67,14 @@ public class ScheduleRepository extends GenericRepository {
         return query.getResultList();
     }
 
-    public List<ScheduleEntryEntity> fetchPrefiltredScheduleEntriesToTrigger() {
+    // TODO NAZWA
+    public List<ScheduleEntryEntity> fetchPrefiltredScheduleEntriesForNotificationSending() {
         Instant d1 = Instant.now().minus(Duration.ofMinutes(2));
         Instant d2 = Instant.now().plus(Duration.ofMinutes(2));
 
         TypedQuery<ScheduleEntryEntity> query = em.createQuery(
                 "select s from ScheduleEntryEntity s " +
-                        "where s.deleted = false " +
+                        "where s.isHighPriorityAlertActive = false " +
                         "and DATE(SYSDATE()) between DATE(s.startDate) and DATE(s.endDate) " +
                         "and s.start between :d1 and :d2 " +
                         "and (s.lastNotificationDate is null or DATE(s.lastNotificationDate) < DATE(SYSDATE()))",
@@ -84,5 +85,10 @@ public class ScheduleRepository extends GenericRepository {
         query.setParameter("d2", Date.from(d2), TemporalType.TIME);
 
         return query.getResultList();
+    }
+
+    // TODO NAZWA
+    public List<ScheduleEntryEntity> fetchScheduleEntriesForAlertResending() {
+        return null;
     }
 }

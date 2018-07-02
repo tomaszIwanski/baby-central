@@ -106,7 +106,7 @@ public class ScheduleService {
 
     // TODO NAZWA
     public List<ScheduleEntryEntity> getEventsForNotificationSending() {
-        return scheduleRepository.fetchPrefiltredScheduleEntriesToTrigger()
+        return scheduleRepository.fetchPrefiltredScheduleEntriesForNotificationSending()
                 .stream()
                 .filter(this::isValidForSend)
                 .collect(Collectors.toList());
