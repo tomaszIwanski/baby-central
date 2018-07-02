@@ -7,6 +7,8 @@ import com.archangel_design.babycentral.service.onesignal.OneSignalNotificationF
 import com.archangel_design.babycentral.service.onesignal.OneSignalPushNotification;
 import com.archangel_design.babycentral.service.onesignal.OneSignalService;
 import com.archangel_design.babycentral.service.ScheduleService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +18,8 @@ import java.util.Objects;
 
 @Service
 public class ScheduleEntryProcessor {
+
+    private final Logger LOGGER = LoggerFactory.getLogger(getClass());
 
     private final ScheduleService scheduleService;
     private final ScheduleRepository scheduleRepository;
@@ -69,6 +73,7 @@ public class ScheduleEntryProcessor {
     ) {
         OneSignalPushNotification notification;
 
+        // TODO fu fu -> demeter?
         if (Objects.isNull(scheduleEntry.getOwner().getUser().getOrganization()))
             notification =
                     oneSignalNotificationFactory.createPushNotificationForUser(scheduleEntry);
@@ -79,7 +84,10 @@ public class ScheduleEntryProcessor {
         try {
             oneSignalService.sendPushNotification(notification);
         } catch (Exception exception) {
-            exception.printStackTrace();
+            LOGGER.warn(
+                    String.format("Error during sending push notification for event $d.", scheduleEntry.getId()),
+                    exception
+            );
         }
     }
 }
