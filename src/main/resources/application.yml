@@ -10,8 +10,8 @@ spring:
         dialect: org.hibernate.dialect.MySQL5InnoDBDialect
   datasource:
     url: "jdbc:mysql://127.0.0.1:3306/babycentral?useSSL=false"
-    username: root
-    password: root
+    username: ${BABY_CENTRAL_DB_USER}
+    password: ${BABY_CENTRAL_DB_PASSWORD}
 #    driver-class-name: com.mysql.cj.jdbc.Driver
 
 server:
